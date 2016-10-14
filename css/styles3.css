@@ -191,7 +191,7 @@ div.bottom {
     text-align:center;
     text-transform:capitalize;
     font-size:20px;
-    font-weight:bold;
+    font-weight:bolder;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     font-weight:normal!important;
     top:40%;
@@ -203,7 +203,7 @@ div.bottom {
 }
 #rig li:hover .rig-text {
     /*transform:translateY(0px);*/
-    top: 25%;
+    top: 15%;
 }
 
 .rig-desc {
@@ -211,15 +211,15 @@ div.bottom {
     /*padding:0 30px;*/
     box-sizing:border-box;
     position:absolute;
-    left:20%;
-    width:60%;
+    left:10%;
+    width:80%;
     text-align:justify;
     text-transform:none;
-    font-size: 14px;
+    font-size: 12px;
     font-weight:bold;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     font-weight:normal!important;
-    top:45%;
+    top:35%;
     color: #777;
     opacity:0;
     filter:alpha(opacity=0);/*For older IE*/
