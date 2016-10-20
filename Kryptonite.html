@@ -3,24 +3,27 @@
 <head>
 
 <link rel="stylesheet" type="text/css" href="css/styles3.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="img/favicon.png">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+</script>
+<script src="index.js"></script>
 
 </head>
 <body>
 
-	<div class="anchor">
-	<div class="top">
+	<header class="nav-down">
 	<div class="title">
 		<h1>Adrian Pearl</h1>
 	</div>
 	<div class="nav" id="nav">
 		<ul>
-    		<li><a href="Intro.html">Intro</a></li>
-    		<li><a href="index.html">Portfolio</a></li>
-		<li><a href="#contact">Contact</a></li>
+    		<li><a href="index.html">Intro</a></li>
+    		<li><a href="Main.html">Portfolio</a></li>
     	</ul>
 	</div>
-	</div>
-	</div>
+	</header>
 	
 	<div class="spacer"></div>
 	
@@ -44,24 +47,20 @@
 			
 			<sectionHead>What <i>is</i> a bike lock?</sectionHead>
 			
-			If you distill the idea of a lock down to its most basic parts, you realize 
+			If you distill the idea of a lock down to its fundamentals, you realize 
 			that even the most basic lock needs three things:
 			
 			<ul>
+			
 				<li><b>A credential.</b> This is the information that proves you are the 
-				rightful owner of the bike that the lock is protecting. Often, this information 
-				is coded into a physical object. In a standard pin-and-tumbler lock, the 
-				credential is a key, and the information coded into it is the set of 
-				regions of slightly varying heights along its surface. In recent years 
-				pin-and-tumbler systems have been replaced by more secure disk lock mechanisms, 
-				but the same idea still applies. In any case, the credential can only take three basic forms: something you <i>have</i> (a key), something you <i>are</i> (biometric identification), or something you <i>know</i> (a password). </li>
+				rightful owner of the bike that the lock is protecting. In a standard lock, this information is coded into a key, in the form of the exact shapes and sizes of regions along its surface. In any case, the credential is always something you <i>have</i> (a key), something you <i>are</i> (biometric identification), or something you <i>know</i> (a password). </li> 
 				
 				<li><b>A gatekeeper.</b> Every lock needs some mechanism to determine who 
 				has the real credential and who is just an impostor. In a pin-and-tumbler lock, 
 				the gate keeper is a series of spring-loaded pins that each have to be depressed 
 				to the correct position to allow rotation of the lock's inner cylinder. The 
 				gatekeeper is usually coupled to the credential - if the credential is a 
-				fingerprint, the gatekeeper is probably a fingerprint sensor! Unless you're planning to break the lock, the only way to your bike is through the gatekeeper.</li>
+				fingerprint, the gatekeeper is probably a fingerprint sensor!</li>
 				
 				<li><b>A gate (opener).</b> The lock needs a physical object blocking the path to the bike, and some way to open it provided only by the gatekeeper. The gate is almost always a thick piece of hardened steel called a deadbolt. On a standard lock, the gate opener is a twisting motion provided by the user once the key is inserted. If you have an electronic lock, your gate opener is probably some kind of motor or linear actuator.</li>
 			</ul>
@@ -93,17 +92,17 @@
 									
 			<img id="image" src="img/boards.jpg">
 			
-			Since we wanted to make prototypes with both form and function resembling that of an actual electronic lock, the arduinos were just too big. So, I learned the basics of programming AVRs and started using them in our prototypes. This was a daunting task since I had never before learned to program microcontrollers, but in a week or two I knew how to flash ATTiny's and take advantage of their EEPROM, a bunch of their timers, sleep modes/interrupts, and a few other capabilities. I was also learning more about circuit design and clever ways to use transistors.
+			Since we wanted to make prototypes with both form and function resembling that of an actual electronic lock, the arduinos were just too big. So, I learned the basics of programming AVRs and started using them in our prototypes. This was a daunting task since I had never before learned to program microcontrollers, but in a week or two I knew how to flash ATTiny's and take advantage of their EEPROM, a bunch of their timers, sleep modes/interrupts, and a few other capabilities. I was also learning more about circuit design and clever ways to use transistors to save power.
 			
 			</br></br>
 			
 			To fit all our components inside a bike lock, we printed a few custom PCBs. I mostly just watched Alex put the gerber files together, but it was a great way to learn about how it's done!
 			
-			<img id="image" src="img/pcb.jpg">
+			<img id="image" src="img/PCB.jpg">
 			
 			As I said before, one of our goals was to keep the form factor of a bike lock mostly the same. There were a couple reasons for this. The first was that we wanted to make the process more like a scientific experiment, where typically only one variable is changed at a time. If we did end up making a lock easier to use, we wanted to be sure it was because of the embedded electronic system we had designed, and not some other change to the lock. The second reason was that it made prototyping more efficient and iterating much faster. For most of our early prototypes, we were able to 3D print housings similar to what you would find in a standard lock, cut a tube of acrylic, and stuff our circuits inside.
 			
-			<img id="image" src="img/crossbar.jpg">
+			<img id="image" src="img/Crossbar.jpg">
 						
 		</span>
 				
