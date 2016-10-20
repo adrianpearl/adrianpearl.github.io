@@ -3,12 +3,17 @@
 <head>
 
 <link rel="stylesheet" type="text/css" href="css/styles3.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="img/favicon.png">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+</script>
+<script src="index.js"></script>
 
 </head>
 <body>
 
-	<div class="anchor">
-	<div class="top">
+	<header class="nav-down">
 	<div class="title">
 		<h1>Adrian Pearl</h1>
 	</div>
@@ -16,11 +21,9 @@
 		<ul>
     		<li><a href="index.html">Intro</a></li>
     		<li><a href="Main.html">Portfolio</a></li>
-		<li><a href="#contact">Contact</a></li>
     	</ul>
 	</div>
-	</div>
-	</div>
+	</header>
 	
 	<div class="spacer"></div>
 	
@@ -31,12 +34,12 @@
 		<span>
 		
 			<sectionHead>The Problem</sectionHead>
-		
-			I have always gone to the gym with a consistency somewhere between <i>never</i> and <i>how much I would like to go.</i> I can tell that  I lift quite a bit more weight than when I first started going in high school, but it's hard to tell if I've made much progress more recently. One time I was lifting some dumbbells and realized I had no idea how heavy the dumbbells were the last time I did that exercise. Nor could I remember how far I had run, or how fast, last time I had stepped on a treadmill.
 			
+			One day last year, I was lifting weights in the gym when I realized I couldn't tell if I was lifting more or less weight than the last time I had gone. And that was less than a week before - go back a month and I had no clue.
+					
 			</br></br>
 			
-			I should start writing stuff down, I thought. Or maybe use one of those apps where you enter all the exercises you did and you can look at them later. But both of those would mean stopping my workout every minute or so to open my phone or notebook and put in some numbers. They were just too cumbersome - <i>I would never be able to do either of them consistently.</i>
+			I should start writing stuff down, I thought. Or maybe use one of those apps where you enter all the exercises you did and you can look at them later. I tried using an app called JEFIT for a couple days, but it quickly became too cumbersome to interrupt my workout every couple minutes to type in some numbers.
 			
 			<img id="image" src="bla" alt="Is this even useful?">
 			
@@ -47,9 +50,9 @@
 			A lot of people have approached the problem of tracking exercises in a gym, and pretty much all of them can fit into a few categories:
 			
 			<ol>
-				<li>The most ubiquitous (and least useful) solution are the apps I mentioned before, which basically function as digital notebooks where you write down everything you've done so you can look at it later. One example is JEFIT, which boasts on its website that it has over 3 Million registered users and over 15 Million logged workouts. It sounds impressive, until you realize that the average user has logged 5 workouts, meaning they used it for maybe 2 weeks before their motivation just couldn't overcome the nuisance of entering all their data. In fact, a study last year from NYU School of Medicine found that the number one reason people delete fitness-related smartphone apps is that it takes too long to enter their data.</li>
-				<li>Probably inspired by the success of Fitbit and similar products, companies like <a id="link" href="http://www.gymwatch.com/en">Gymwatch</a> and <a id="link" href="http://www.atlaswearables.com">Atlas</a> have tried to create wearables that track detailed information about weight exercises, rather than more general data about steps or sleep. These things use some pretty amazing technology, but their capabilities seem a bit limited. They don't know how many pounds you're lifting, and devices like the Atlas wristband detects which exercise you're doing only if you tell it beforehand which ones you plan to do. Also, they're not cheap! Especially ones like <a id="link" href="http://www.liveathos.com">Athos.</a></li>
-				<li>My initial thought was to outfit the gym itself with some high-tech equipment, and some companies have tried this approach. <a id="link" href="http://www.fitlinxx.net/fitlinxx-professional-tracking-devices.htm">Fitlinxx</a> attaches touchscreens to exercise equipment so users can enter an ID number and have their workouts recorded, but their product is old and the interface looks like Windows 98. Newer companies like <a id="link" href="http://www.eGym.com">eGym</a> have improved on this, but my more fundamental critique was that I didn't want to turn the gym into yet another place where screens are constantly in our faces. I wanted to use technology to track workouts but minimize the extent to which users are required to interact with that technology. </li>
+				<li>Stand-alone apps that no one has time for. A study last year from NYU School of Medicine found that the number one reason people delete fitness-related smartphone apps is that it takes too long to enter their data.</li>
+				<li>Wearables that try to go beyond steps and track weightlifting exercises. Some are very cool, but none get the job done in full. <a id="link" href="http://www.atlaswearables.com">Atlas</a>, for example, doesn't know how much weight you're lifting, and can only identify your exercises automatically if you plan them out before your workout.</li>
+				<li>Companies outfitting the gym itself with high-tech equipment. Sometimes, its hard to use and looks like Windows 98 (<a id="link" href="http://www.fitlinxx.net/fitlinxx-professional-tracking-devices.htm">Fitlinxx</a>). But all of them make the gym into yet another place where touchscreens are constantly in our faces and pretend that's a good thing.</li>
 			</ol>
 			
 			<sectionHead>Design Criteria</sectionHead>
@@ -57,16 +60,20 @@
 			After researching more about the problem and talking to some gym managers and trainers, I was ready to start defining what a solution to this problem should look like:
 			
 			<ul>
-				<li>Other than its staff and the land it occupies, a gym's most valuable asset is its equipment (or liability, since it is often leased). In any case, it typically has a value in the mid-six figures, and is difficult to replace both financially and logistically. For this reason, the product has to retrofit existing equipment, rather than selling a gym new equipment like <a id="link" href="http://www.technogym.com">TechnoGym</a>.</li>
-				<li>My working theory, based on apps like JEFIT, was that each additional fraction of a second that a user has to spend interrupting their workout to capture data makes them much less likely to continue using the product. So I would have to be relentless in looking for any way to shave off a few milliseconds from the user experience. The vast majority of the time spent should be viewing and learning from their data, not collecting it.</li>
-				<li>I knew that any hardware I designed wouldn't be easier to use than an iPhone or Galaxy, so why not make a product that is only used via a smartphone app and not interacted with physically by the user? It makes things simpler and means that the device doesn't have to look flashy, just do its job and communicate with smartphones. It also shouldn't require any additional wearable device to use, since those also have <a href="http://endeavourpartners.net/assets/Endeavour-Partners-Wearables-and-the-Science-of-Human-Behavior-Change-Part-1-January-20141.pdf" id="link">bad retention rates</a> and a host of potential problems with comfort, maintenance, and aesthetics, just to name a few.</li>
+				<li>A typical gym's equipment is worth around half a million dollars and is not easily replaceable (it is often leased), so a commercially viable product needs to retrofit existing equipment.
+				<li>My core belief was that users were incredibly averse to constant interruptions lasting even a few seconds to capture data. Interruptions should happen once for each exercise and never last more than a second.</li>
+				<li>Most gym tracking products require you to interact either with some wearable or with a touchscreen display. We already carry phones in our pockets that are much easier to use than either of those, so the product should only require the use of a smartphone.</li>
 				<li>Finally, each new piece of outfitted equipment means one more device with one more battery. A gym staff can't be bothered with changing or charging batteries all the time, so they would need extremely low power consumption.</li>
 			</ul>
 			
 			<sectionHead>Prototyping</sectionHead>
 			<sectionHead class="sub">Narrowing the Focus</sectionHead>
 			
-			To begin to actually solve this problem, I distilled the job of this device down to four tasks: identify the exercise a person is doing, record how long they do it or the number of repetitions, measure any other relevant information (like the weight they are lifting), and transmit this data to their smartphone (and no one else's). For data transmission, I decided the best mechanism would be Bluetooth Low Energy, since it's pretty reliable, already built into smartphones, and it works well enough for Fitbit and a ton of other gadgets out there. Also, relatively inexpensive developer kits make it easy to learn and use. I picked up a few like <a href="https://www.adafruit.com/products/2829" id="link">this one from Adafruit</a> and within a week or two I was writing some pretty simple sketches and iOS apps to get my phone to communicate with them.
+			To begin to actually solve this problem, I distilled the job of this device down to four tasks: identify the exercise, count the reps, measure the weight, and transmit the data to the smartphone.
+			
+			</br></br>
+			
+			 For data transmission, I decided the best mechanism would be Bluetooth Low Energy because it's reliable, already built into smartphones, and used in Fitbits and a ton of other gadgets. I picked up some developer kits like <a href="https://www.adafruit.com/products/2829" id="link">this one from Adafruit</a> and within a week or two I was writing some pretty simple sketches and iOS apps to get my phone to communicate with them.
 			
 			</br></br>
 			
@@ -74,16 +81,26 @@
 			
 			<img id="image" src="bla" alt="Pixy">
 			
-			Then I realized what my real problem was: I was trying to think of a catch-all solution for every exercise, when in fact exercises can be grouped into a few categories: cardio machines, select raise weight machines, barbells, and dumbbells. For equipment like dumbbells, identifying the exercise is very complicated, because the same dumbbells could be used for various exercises in any location. But for select raise weight machines, which use stacks of weighted plates and a pin to select how much weight you want to lift, the task is much simpler. Most machines can only be used for one type of exercise, and determining the weight is just a matter of counting the plates going up and down. It would be nice to have a single device that could retrofit any piece of equipment, but the reality was that using different technologies better suited to each type would be much more effective.
-			
-			</br></br>
-			
-			I decided that treadmills and select raise machines would be the easiest to track via retrofitting, and since wearables already do a pretty good job of tracking cardio exercises, I would focus on weight machines and the rest could come later.
+			Then I realized I couldn't possibly think of a catch-all solution to track every exercise, but some types of exercise are much easier to track than others. Dumbbells are very hard, because you can do a plethora of exercises in any location with the same pair, but its relatively easy to track exercises done on weight machines. Each machine is usually only used for a single exercise, so identification is trivial, and the rest boils down to counting how many plates are going up and down, and how many times. So I would start with weight machines and the rest could come later.		
 						
 			<sectionHead class="sub">Counting Plates</sectionHead>
 			
-			After choosing to focus on weight machine exercises, the four tasks became much simpler. Each device would be permanently attached to a single machine, so it would know from the start what exercise it was tracking. To count reps, I would use an accelerometer, a device that can measure change of direction. Wearables use them to count steps, but this would be easier because it involves more sudden change of direction (the weight plates moving vertically up and down). And I was slowly figuring out how to use Bluetooth for transmission. The only difficult task that remained was figuring out how much weight the person was lifting.
-									
+			For a weight machine, it's relatively simple to use something like an accelerometer to count the number of times the weights go up and down. The more difficult task is figuring out how many plates the user is lifting. I tried a bunch of ideas for this - strain gauges, distance sensors, and a couple others, but none of them were both reliable and precise. 
+			
+			</br></br>Image</br></br>
+			
+			The solution I came up with was to attach a small resistive element to each weight in the stack. The device at the top transmits a signal, which is attenuated slightly by each weight it passes through. If the user is lifting four plates, those four will be touching each other, so the signal will experience four attenuations. All the device has to do, then, is measure the total attenuation to figure out how many plates are being lifted. The hardest thing about this design was ensuring that each "link" in the "chain" maintained reliable electrical contact with its neighbors whenever they were touching. Any given weight could be constantly separating from one of its neighbors and rejoining it, sometimes at high speeds. To test out ideas, I built a wooden model of a weight machine and started attaching electronics to it.
+			
+			<sectionHead class="sub">Firmware and Software</sectionHead>
+			
+			The final tasks were to attach a device at the top with an accelerometer to count reps, an interface with the "chain" I had built to measure weight, and bluetooth to put it all together, <i>then</i> write an iOS app to make it work for the user. I chose the <a id="link" href="https://punchthrough.com/bean">LightBlue Bean from Punchthrough</a> as my MCU because it's an awesome little board that has an on board accelerometer, most of the capabilities of an arduino, and works on a coin cell. It's also programmable wirelessly which was unnecessary but very cool.
+			
+			</br></br>
+			
+			In the end, most of my time was spent learning the finer points of Bluetooth on iPhones and thinking of ways to simplify the user experience. In early prototypes I made, the user would have to unlock their phone and open the app after each workout to collect data. This was an improvement, but not nearly enough, so I redesigned the app to work offscreen and allow the user to collect their data from the lock screen.
+			
+			</br></br>Image</br></br>
+
 		</span>
 				
 	</div>

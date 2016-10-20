@@ -1,7 +1,7 @@
 html {
     font-size: 100%;
     height: 100%;
-    background-color: #404550;
+    background-color: #fff;
 }
 
 body {
@@ -10,6 +10,8 @@ body {
 	min-height: 100%;
 	margin: auto;
 	background-color: #fff;
+	font-size: 11pt;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 .content {
@@ -17,30 +19,39 @@ body {
 	margin: 0 auto 30px;
 	background-color: #fff;
 	height: auto;
+	text-align: center;
+}
+
+::selection {
+  background: #404550;
+  /*color: #fff;*/
 }
 
 /* For the top and bottom bars, all pages */
 
-div.top {
-	overflow: auto;
-	width: 90%;
-	position: relative;
-	height: 100px;
-	line-height: 99px;
-	margin: auto;
-}
-
-div.anchor {
+header {
 	margin-left:0;
 	position: fixed;
+	top: 0;
 	width: 100%;
 	z-index: 1;
-	background-color: #404550;
+	background-color: #fff;
+	color: #404550;
+	height: 60px;
+	line-height: 59px;
+	overflow: auto;
+	transition: top 0.2s ease-in-out;
+	border-bottom: 1px solid #7083AA;
 }
+
+.nav-up {
+	top: -100px;
+}
+	
 
 div.title {
 	float: left;
-	margin: 0;
+	margin-left: 5%;
 	overflow: auto;
 	padding: 0;
 }
@@ -51,12 +62,10 @@ div.spacer {
 }
 
 h1 {
-	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-	font-size: 20px;
+	font-size: 125%;
 	font-weight: 100;
 	margin: 0;
 	padding: 0;
-	color: #fff;
 	text-align: center;
 }
 
@@ -65,6 +74,7 @@ div.nav {
 	float: right;
 	padding: 0;
 	overflow: auto;
+	margin-right: 5%;
 }
 
 #nav ul {
@@ -84,8 +94,8 @@ div.nav {
 #nav li a {
 	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 	font-weight: lighter;
-	font-size: 12px;
-    color: #fff;
+	font-size: 75%;
+    color: inherit;
     text-decoration: none;
     padding: 0px 5px;
     margin: 0;
@@ -93,7 +103,7 @@ div.nav {
 }
 
 #nav li a:hover {
-	border-bottom: 1px solid #fff;
+	border-bottom: 1px solid #404550;
 	padding-bottom: 3px;
 }
 
@@ -108,7 +118,7 @@ div.bottom {
 	right: 0px;
 	left: 0px;
 	text-align: left;
-	font-size: 12px;
+	font-size: 75%;
 	z-index:0;
 	padding-left: 5%;
 	border-top: 1px solid #ddd;
@@ -119,22 +129,25 @@ div.bottom {
 
 #rig {
     /*max-width:900px*/
-    margin: 5% -2% 0 -2%; /*center aligned*/
-    padding:0;
+    margin: 5% auto; /*center aligned*/
+    padding: 0;
     font-size:0; /* Remember to change it back to normal font size if have captions */
     list-style:none;
     z-index:0;
     height: auto;
+    background-color: #fff;
+    width: 100%;
 }
 
 #rig li {
     display: inline-block;
     *display:inline;/*for IE6 - IE7*/
-    vertical-align: middle;
-    box-sizing:border-box;
+    vertical-align: top;
+    width: 100%;
     margin:0 2% 4% 2%;
     padding: 0;
     height: 100%;
+    overflow: auto;
 }
         
 /* The wrapper for each item */
@@ -171,7 +184,7 @@ div.bottom {
     right: 0;
     margin: auto;
     background: #fff;
-    opacity:0.9;
+    opacity:0.95;
     transition:all 0.3s;
 }
 
@@ -190,8 +203,8 @@ div.bottom {
     width:100%;
     text-align:center;
     text-transform:capitalize;
-    font-size:20px;
-    font-weight:bold;
+    font-size: 20px;
+    font-weight:900;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     font-weight:normal!important;
     top:40%;
@@ -203,7 +216,7 @@ div.bottom {
 }
 #rig li:hover .rig-text {
     /*transform:translateY(0px);*/
-    top: 25%;
+    top: 15%;
 }
 
 .rig-desc {
@@ -211,15 +224,15 @@ div.bottom {
     /*padding:0 30px;*/
     box-sizing:border-box;
     position:absolute;
-    left:20%;
-    width:60%;
+    left:10%;
+    width:80%;
     text-align:justify;
     text-transform:none;
-    font-size: 14px;
+    font-size: 12px;
     font-weight:bold;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     font-weight:normal!important;
-    top:45%;
+    top:35%;
     color: #777;
     opacity:0;
     filter:alpha(opacity=0);/*For older IE*/
@@ -229,6 +242,15 @@ div.bottom {
 #rig li:hover .rig-desc {
 	opacity:1;
 }
+
+.rig-skill {
+	color: white;
+	background-color: #798FBD;
+	display: inline-block;
+	padding: 2% 3%;
+	margin: 3px;
+	font-size: 16px;
+} 
 
 .rig-arrow {
 	display: inline-block;
@@ -251,23 +273,24 @@ div.bottom {
 .inContent {
 	width: 100%;
 	background-color: #fff;
-	padding: 5%;
-	overflow: scroll;
+	padding: 5% 0;
 	bottom: 30px;
+	overflow: scroll;
 }
 
 #head {
-	width: 50%;
+	width: 30%;
 	display: inline block;
+	margin-left: 5%;
 	float: left;
 }
 
 #intro {
-	width: 30%;
+	width: 50%;
 	display: inline block;
 	padding: 30px;
 	font-family: sans-serif;
-	font-size: 18px;
+	font-size: 112%;
 	color: #333;
 	float: left;
 	font-weight: 100;
@@ -283,9 +306,9 @@ div.bottom {
 #body {
 	width: 700px;
 	background-color: #fff;
-	max-width: 95%;
+	max-width: 90%;
 	font-family: sans-serif;
-	font-size: 20px;
+	font-size: 125%;
 	color: #333;
 	font-weight: 100;
 	height: auto;
@@ -295,9 +318,13 @@ div.bottom {
 	padding-bottom: 30px;
 }
 
+#body li {
+	margin: 1em 0;
+}
+
 #link {
 	text-decoration: none;
-	color: #aaa;
+	color: #798FBD;
 }
 
 #link:hover {
@@ -309,25 +336,34 @@ div.bottom {
 	width: 100%;
 }
 
+#image2 {
+	margin: 2em auto;
+	width: 60%;
+	display: block;
+}
+
 sectionHead {
 	font-family: sans-serif;
-	font-size: 30px;
+	font-size: 200%;
 	font-weight: bold;
 	display: block;
-	margin-top: 48px;
+	margin-top: 3em;
 	margin-bottom: 1em;
+	line-height: 1em;
 }
 
 sectionHead.sub {
-	font-size: 24px;
-	margin-top: 0.5em;
+	font-size: 150%;
+	margin:1em 0;
 	color: #555;
+	line-height: 1em;
 }
 
 pageTitle {
-	font-size: 60px;
+	font-size: 375%;
 	display: block;
-	margin: 10% auto;
+	margin: 2em auto;
+	line-height: 1em;
 }
 
 /* Modifications for screen size */
@@ -339,16 +375,33 @@ pageTitle {
     }
 }
 
+/* anything small */
 @media (max-width: 1000px) {
+
     #rig li {
-        width:100%;
+        width:95%;
     }
     #head {
     	width:90%;
     }
     #intro {
     	width: 90%;
-    	padding: 30px 0;
+    	padding: 30px 5%;
     }
-
 }
+
+/* iPhone in portrait only (landscape adjusts text to proper size automatically) */
+@media handheld and (orientation: portrait) {
+	body {
+    	font-size: 200%;
+    }
+    div.top, div.spacer {
+    	height: 150px;
+    	line-height: 149px;
+    }
+    #body {
+    	max-width: 60%;
+    	color: #f0f;
+    }
+}
+
