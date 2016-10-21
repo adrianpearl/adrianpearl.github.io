@@ -330,14 +330,37 @@ div.bottom {
 	color: #333;
 }
 
+.tablecontents {
+	margin: 4em 0.2em;
+	text-decoration: none;
+	color: #333;
+	background-color: #e4e4e4;
+	padding: 1em;
+	display: inline block;
+	white-space: nowrap;
+}
+
+.tablecontents:hover {
+	background-color: #aaa;
+}
+
 #image {
 	margin: 2em auto;
 	width: 100%;
+	text-align: center;
+	line-height: 3.8em;
 }
 
 #image2 {
 	margin: 2em auto;
 	width: 60%;
+	display: block;
+}
+
+#video {
+	margin: auto;
+	max-width: 100%;
+	min-width: 70%;
 	display: block;
 }
 
