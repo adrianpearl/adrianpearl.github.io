@@ -1,22 +1,40 @@
+@font-face {
+    font-family: Code;
+    src: url('fonts/Code/Code-Bold.otf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Code;
+    src: url('fonts/Code/Code-Light.otf') format('truetype');
+    font-weight: light;
+}
+
+@font-face {
+    font-family: Lato;
+    src: url('fonts/Lato/Lato-Thin.ttf') format('truetype');
+    font-weight: light;
+}
+
 html {
     font-size: 100%;
     height: 100%;
-    background-color: #404550;
+    background-color: #fff;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 body {
 	width: 100%;
 	height: auto;
-	min-height: 100%;
 	margin: auto;
 	background-color: #fff;
 	font-size: 11pt;
-	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	padding:0;
 }
 
 .content {
 	width: 90%;
-	margin: 0 auto 30px;
+	margin: 0 auto;
 	background-color: #fff;
 	height: auto;
 	text-align: center;
@@ -30,16 +48,17 @@ body {
 /* For the top and bottom bars, all pages */
 
 header {
-	margin-left:0;
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: 1;
-	background-color: #404550;
 	height: 70px;
 	line-height: 69px;
+	z-index: 1;
 	overflow: auto;
 	transition: top 0.2s ease-in-out;
+	border-bottom: 1px solid #ddd;
+	background-color: #fff;
+	overflow: hidden;
 }
 
 .nav-up {
@@ -49,60 +68,61 @@ header {
 
 div.title {
 	float: left;
-	margin-left: 5%;
-	overflow: auto;
-	padding: 0;
+	margin: 0 5%;
+	background-color: #fff;
+	height: 100%;
 }
 
 div.spacer {
 	width: 100%;
-	height: 100px;
+	height: 80px;
 }
 
 h1 {
-	font-size: 125%;
-	font-weight: 100;
-	margin: 0;
-	padding: 0;
-	color: #fff;
-	text-align: center;
+	font-family: Code;
+	font-weight: light;
+	font-size: 175%;
+    color: #000;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background-color: #fff;
+    margin: 0;  
 }
 
 div.nav {
-	margin: 0;
 	float: right;
-	padding: 0;
-	overflow: auto;
 	margin-right: 5%;
+	background-color: #fff;
+	height: 100%;
+	padding: 0;
+	max-width: 100%;
 }
 
 #nav ul {
-	list-style-type: none;
 	text-align: center;
 	list-style: none;
-    padding: 0;
-    margin: 0;
+	background-color: #fff;
+	margin: 0;
+	padding: 0;
+	vertical-align: bottom;
 }
 
 #nav ul li {
 	display: inline;
-	padding: 0;
-	margin: 0;
 }
 
 #nav li a {
-	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-	font-weight: lighter;
-	font-size: 75%;
-    color: #fff;
+	font-family: Lato;
+	font-weight: light;
+	font-size: 100%;
+    color: #000;
     text-decoration: none;
-    padding: 0px 5px;
-    margin: 0;
     text-transform: uppercase;
 }
 
 #nav li a:hover {
-	border-bottom: 1px solid #fff;
+	border-bottom: 1px solid #000;
 	padding-bottom: 3px;
 }
 
@@ -134,7 +154,6 @@ div.bottom {
     list-style:none;
     z-index:0;
     height: auto;
-    background-color: #fff;
     width: 100%;
 }
 
@@ -143,10 +162,10 @@ div.bottom {
     *display:inline;/*for IE6 - IE7*/
     vertical-align: top;
     width: 100%;
-    margin:0 2% 4% 2%;
+    margin:0 0 1%;
     padding: 0;
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
 }
         
 /* The wrapper for each item */
@@ -154,24 +173,24 @@ div.bottom {
     /*margin:12px;*/
     display:block;
     position: relative;
-    overflow:hidden;
+    overflow: hidden;
     margin: auto;
-    height: 100%;
+    max-height: 100%;
+    bottom: 0;
 }
         
 /* If have the image layer */
 .rig-img {
     display:block;
     width: 100%;
-    height: 100%;
+    height: auto;
     border:none;
-    transform:scale(1);
     transition:all 1s;
 }
 
-#rig li:hover .rig-img {
+/*#rig li:hover .rig-img {
     transform:scale(1.05);
-}
+}*/
         
 /* If have the overlay layer */
 .rig-overlay {
@@ -183,7 +202,7 @@ div.bottom {
     right: 0;
     margin: auto;
     background: #fff;
-    opacity:0.95;
+    opacity:0.85;
     transition:all 0.3s;
 }
 
@@ -213,6 +232,12 @@ div.bottom {
     /*transform:translateY(-20px);*/
     transition:all .3s;
 }
+
+.rig-text2 {
+	margin: auto;
+	vertical-align: middle;
+}
+
 #rig li:hover .rig-text {
     /*transform:translateY(0px);*/
     top: 15%;
@@ -248,7 +273,7 @@ div.bottom {
 	display: inline-block;
 	padding: 2% 3%;
 	margin: 3px;
-	font-size: 16px;
+	font-size: 14px;
 } 
 
 .rig-arrow {
@@ -270,34 +295,21 @@ div.bottom {
 /* Intro page */
 
 .inContent {
-	width: 100%;
-	background-color: #fff;
-	padding: 5% 0;
-	bottom: 30px;
-	overflow: scroll;
+	width: 90%;
+	padding: 5vw 0;
+	overflow: auto;
+	margin: 70px auto 0;
 }
 
-#head {
-	width: 30%;
-	display: inline block;
-	margin-left: 5%;
-	float: left;
-}
-
-#intro {
-	width: 50%;
-	display: inline block;
-	padding: 30px;
-	font-family: sans-serif;
-	font-size: 112%;
-	color: #333;
-	float: left;
-	font-weight: 100;
-	background-color: #fff;
+td {
+	height: 400px;
+	min-width: 30px;
 }
 
 .cover {
   object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 /* Project pages */
@@ -330,14 +342,64 @@ div.bottom {
 	color: #333;
 }
 
+.tablecontents {
+	margin: 4em 0.2em;
+	text-decoration: none;
+	color: #333;
+	background-color: #e4e4e4;
+	padding: 1em;
+	display: inline block;
+	white-space: nowrap;
+}
+
+.tablecontents:hover {
+	background-color: #aaa;
+}
+
 #image {
 	margin: 2em auto;
 	width: 100%;
+	text-align: center;
+	line-height: 3.8em;
 }
 
 #image2 {
 	margin: 2em auto;
 	width: 60%;
+	display: block;
+}
+
+.title-cell {
+    display:block;
+    position: relative;
+    overflow: hidden;
+    margin: 5vw auto 0;
+    width: 90%;
+}
+
+#titleimage {
+	width: 100%;
+	display:block;
+	height: 60vw;
+	max-height: 500px;
+	object-fit: cover;
+	display: block;
+}
+
+.pageTitle {
+	position: absolute;
+	top: 40%;
+	width: 100%;
+	height: auto;
+	background-color: #fff;
+	text-align: center;
+}
+	
+
+#video {
+	margin: auto;
+	max-width: 100%;
+	min-width: 70%;
 	display: block;
 }
 
@@ -359,48 +421,38 @@ sectionHead.sub {
 }
 
 pageTitle {
-	font-size: 375%;
+	font-size: 175%;
 	display: block;
-	margin: 2em auto;
-	line-height: 1em;
+	color: #333;
 }
 
 /* Modifications for screen size */
 
 @media (max-width: 9000px) {
     #rig li {
-        width: 29%;
+        width: 33%;
         height: 50%;
     }
 }
 
 /* anything small */
 @media (max-width: 1000px) {
-
+	
+	#rig {
+		margin: auto;
+	}
     #rig li {
-        width:95%;
+        width:98%;
+        height: auto;
     }
-    #head {
-    	width:90%;
+    .rig-cell {
+    	max-height: 250px;
     }
-    #intro {
-    	width: 90%;
-    	padding: 30px 5%;
-    }
-}
-
-/* iPhone in portrait only (landscape adjusts text to proper size automatically) */
-@media handheld and (orientation: portrait) {
-	body {
-    	font-size: 200%;
-    }
-    div.top, div.spacer {
-    	height: 150px;
-    	line-height: 149px;
-    }
-    #body {
-    	max-width: 60%;
-    	color: #f0f;
+	td {
+        width:100%;
+        display: block;
+        padding:0;
+        height: auto;
+        margin-bottom: 5vw;
     }
 }
-

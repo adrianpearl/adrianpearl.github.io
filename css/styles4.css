@@ -2,6 +2,7 @@ html {
     font-size: 100%;
     height: 100%;
     background-color: #fff;
+    color: #404550;
 }
 
 body {
@@ -36,7 +37,6 @@ header {
 	width: 100%;
 	z-index: 1;
 	background-color: #fff;
-	color: #404550;
 	height: 60px;
 	line-height: 59px;
 	overflow: auto;
@@ -95,7 +95,7 @@ div.nav {
 	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 	font-weight: lighter;
 	font-size: 75%;
-    color: inherit;
+    color: #404550;
     text-decoration: none;
     padding: 0px 5px;
     margin: 0;
@@ -144,7 +144,7 @@ div.bottom {
     *display:inline;/*for IE6 - IE7*/
     vertical-align: top;
     width: 100%;
-    margin:0 2% 4% 2%;
+    margin:0 2% 1% 2%;
     padding: 0;
     height: 100%;
     overflow: auto;
@@ -331,14 +331,37 @@ div.bottom {
 	color: #333;
 }
 
+.tablecontents {
+	margin: 4em 0.2em;
+	text-decoration: none;
+	color: #333;
+	background-color: #e4e4e4;
+	padding: 1em;
+	display: inline block;
+	white-space: nowrap;
+}
+
+.tablecontents:hover {
+	background-color: #aaa;
+}
+
 #image {
 	margin: 2em auto;
 	width: 100%;
+	text-align: center;
+	line-height: 3.8em;
 }
 
 #image2 {
 	margin: 2em auto;
 	width: 60%;
+	display: block;
+}
+
+#video {
+	margin: auto;
+	max-width: 100%;
+	min-width: 70%;
 	display: block;
 }
 
@@ -379,7 +402,9 @@ pageTitle {
 @media (max-width: 1000px) {
 
     #rig li {
-        width:95%;
+        width:98%;
+        height: auto;
+        max-height: 250px;
     }
     #head {
     	width:90%;
