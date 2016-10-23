@@ -1,12 +1,12 @@
 @font-face {
     font-family: Code;
-    src: url('fonts/Code/Code-Bold.otf') format('truetype');
+    src: url('fonts/Code/CODE-Bold.otf') format('truetype');
     font-weight: bold;
 }
 
 @font-face {
     font-family: Code;
-    src: url('fonts/Code/Code-Light.otf') format('truetype');
+    src: url('fonts/Code/CODE-Light.otf') format('truetype');
     font-weight: light;
 }
 
