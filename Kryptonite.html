@@ -90,11 +90,13 @@
 			
 			</br></br>
 			
-			(Side note: in hindsight, it was at this point that we should have realized that we didn't need functional electronics to do testing. A better approach would have been to think of different form factors and user interfaces made possible by the electronics we were using, then make plastic "locks" that didn't work but allowed us to test what bikers thought of them. We could have learned this and a lot more from resources like 
+			(Side note: in hindsight, it was at this point that we should have realized that we didn't need functional electronics to do testing. A better approach would have been to make plastic locks that didn't do anything but would have allowed us to test different form factors and interfaces with actual bikers, and then take the best design and figure out how to make the electronics work with it. We could have learned this and a lot more from resources like 
 			<a id="link" href="https://blog.bolt.io/the-illustrated-guide-to-product-development-part-1-ideation-ab797df1dac7">this blog post</a>
 			 from Ben Einstein at Bolt.)
-									
-			<img id="image" src="img/boards.jpg">
+			
+			<figure>
+    			<img id="image" src="img/boards.jpg">
+			</figure> 						
 			
 			Since we wanted to make prototypes with both form and function resembling that of an actual electronic lock, the arduinos were just too big. So, I learned the basics of programming AVRs and started using them in our prototypes. This was a daunting task since I had never before learned to program microcontrollers, but in a week or two I knew how to flash ATTiny's and take advantage of their EEPROM, a bunch of their timers, sleep modes/interrupts, and a few other capabilities. I was also learning more about circuit design and clever ways to use transistors to save power.
 			
@@ -102,15 +104,21 @@
 			
 			To fit all our components inside a bike lock, we printed a few custom PCBs. I mostly just watched Alex put the gerber files together, but it was a great way to learn about how it's done!
 			
-			<img id="image" src="img/pcb.jpg">
+			<figure>
+    			<img id="image" src="img/pcb.jpg">
+			</figure>
 			
 			As I said before, one of our goals was to keep the form factor of a bike lock mostly the same. There were a couple reasons for this. The first was that we wanted to make the process more like a scientific experiment, where typically only one variable is changed at a time. If we did end up making a lock easier to use, we wanted to be sure it was because of the embedded electronic system we had designed, and not some other change to the lock. The second reason was that it made prototyping more efficient and iterating much faster. For most of our early prototypes, we were able to 3D print housings similar to what you would find in a standard lock, cut a tube of acrylic, and stuff our circuits inside.
 			
-			<img id="image" src="img/crossbar.jpg">
+			<figure>
+    			<img id="image" src="img/crossbar.jpg">
+			</figure>
 			
 			One of the most rewarding parts of this project was making prototypes out of metal near the end, because it allowed us to learn about more advanced manufacturing processes and make something that actually resembled a real bike lock. Below is a picture of us using electrical discharge machining to replicate the shape of a standard U-bolt shackle.
 						
-			<img id="image" src="img/shackle_EDM.jpg">
+			<figure>
+    			<img id="image" src="img/shackle_EDM.jpg">
+			</figure>
 						
 		</span>
 				

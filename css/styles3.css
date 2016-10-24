@@ -41,7 +41,7 @@ body {
 }
 
 ::selection {
-  background: #798FBD;
+  background: #aaa;
   /*color: #fff;*/
 }
 
@@ -252,7 +252,7 @@ div.bottom {
     width:80%;
     text-align:justify;
     text-transform:none;
-    font-size: 12px;
+    font-size: 14px;
     font-weight:bold;
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     font-weight:normal!important;
@@ -335,7 +335,7 @@ td {
 
 #link {
 	text-decoration: none;
-	color: #798FBD;
+	color: #aaa;
 }
 
 #link:hover {
@@ -357,7 +357,7 @@ td {
 }
 
 #image {
-	margin: 2em auto;
+	margin: 0;
 	width: 100%;
 	text-align: center;
 	line-height: 3.8em;
@@ -424,6 +424,19 @@ pageTitle {
 	font-size: 175%;
 	display: block;
 	color: #333;
+}
+
+figure {
+	margin: 2em auto;
+	padding: 0;
+}
+
+figcaption {
+	margin: 0;
+	padding: 0;
+	font-size: 11pt;
+	line-height: 11pt;
+	text-align: center;
 }
 
 /* Modifications for screen size */
