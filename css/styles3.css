@@ -34,7 +34,8 @@ body {
 
 .content {
 	width: 90%;
-	margin: 0 auto 40px;
+	margin: 0 auto;
+	padding-bottom: 40px;
 	background-color: #fff;
 	height: auto;
 	text-align: center;
