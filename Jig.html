@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Adrian Pearl's Portfolio Website - PCB Jig</title>
+<link rel="stylesheet" type="text/css" href="css/styles3.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="img/favicon.png">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+</script>
+<script src="index.js"></script>
+
+</head>
+<body>
+
+	<header class="nav-down">
+	<div class="title">
+		<h1>Adrian Pearl</h1>
+	</div>
+	<div class="nav" id="nav">
+		<ul>
+    		<li><a href="index.html">Intro</a></li>
+    		<li><a href="Main.html">Portfolio</a></li>
+    	</ul>
+	</div>
+	</header>
+	
+	<div class="spacer"></div>
+	
+	<div class="title-cell">
+	<img id="titleimage" src="img/jig1.jpg">
+	<span class="pageTitle"><pageTitle>PCB Programming Jig</pageTitle></span>
+	</div>
+	
+	<div id="body">
+	
+		<span>
+		
+			During my time at Tomorrow Lab, I got the chance to lead a short-term client-facing project for a client that had a bunch of PCBs they needed to reprogram. The exact scope of work was to build a jig fixture designed specifically for the PCB the client was using, establish the simplest-possible toolchain for programming, and flash the chip with firmware provided by the client and verify that the program had been flashed correctly. We had some old jigs lying around, so I took one and removed the parts specific to the prior work it was used for, leaving only the base structure and the vertical translation mechanism.
+			
+			<figure>
+    			<img id="image" src="img/jig2.jpg">
+			</figure> 	
+			
+			In my final design, a 3D-printed structure holds the PCB in place in the horizontal plane, and laser cut acrylic holds spring-loaded pogo pins that descend directly onto the board’s programming pads. With a focus on delivering a finished jig as quickly as possible, I took several measures to speed up development time and reduce the necessary number of iterations:
+			
+			</br></br>
+			
+			<ul>
+				<li>By soldering wires to a second copy of the PCB and plugging it into a breadboard, I was able to work on setting up the programming toolchain in parallel with my work on building the jig.</li>
+				<li>I didn’t have access to an in-house laser cutter whose tolerances and kerf I could find precise information on. So I had a single piece of acrylic cut with several rows of holes, sized incrementally so that one of them would fit the pogo pins.</li>
+				<li>Since I didn’t know beforehand which row of holes would be the right one, I would need a way to adjust the location of the PCB on the fly. My solution was a 2-tiered mechanism in which each tier has slotted holes allowing movement in one dimension. When the correct position is found, screws can be tightened to fix the structure in place.</li>
+			</ul>
+	
+		</span>
+				
+	</div>
+	
+	<div class="bottom">
+		Site designed by Adrian Pearl.
+	</div>
+
+	
+		
+
+</body>
+</html>
