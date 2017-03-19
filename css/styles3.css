@@ -82,12 +82,12 @@ div.spacer {
 }
 
 h1 {
-	font-family: Code;
+	font-family: AppleGothic;
 	font-weight: light;
 	font-size: 175%;
     color: #000;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: none;
     letter-spacing: 1.5px;
     background-color: #fff;
     margin: 0;  
