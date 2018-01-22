@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+<!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>Adrian Pearl</title>
+<meta name="generator" content="Jekyll v3.6.2" />
+<meta property="og:title" content="Adrian Pearl" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/jig.html" />
+<meta property="og:url" content="http://localhost:4000/jig.html" />
+<meta property="og:site_name" content="Adrian Pearl" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://localhost:4000/jig.html","headline":"Adrian Pearl","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <a href=""> <h1>Adrian Pearl</h1> </a>
+        <p></p>
+        
+        <div class="nav">
+        	<a href="/">WORK</a>
+        	<a href="about">ABOUT</a>
+        	<a href="mailto:adrian@adrianpearl.com">CONTACT</a>
+        </div>
+
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <div class="bodycontent">
+
+<div class="media">
+<img src="img/Jig/jig1.jpg" />
+</div>
+
+During my time at Tomorrow Lab, I got the chance to lead a short-term client-facing project for a client that had a bunch of PCBs they needed to reprogram. The exact scope of work was to build a jig fixture designed specifically for the PCB the client was using, establish the simplest-possible toolchain for programming, and flash the chip with firmware provided by the client and verify that the program had been flashed correctly. We had some old jigs lying around, so I took one and removed the parts specific to the prior work it was used for, leaving only the base structure and the vertical translation mechanism.
+
+<div class="media" style="text-align:center">	
+<figure>
+	<img id="image" src="img/Jig/jig2.jpg" />
+</figure> 	
+</div>
+
+In my final design, a 3D-printed structure holds the PCB in place in the horizontal plane, and laser cut acrylic holds spring-loaded pogo pins that descend directly onto the board’s programming pads. With a focus on delivering a finished jig as quickly as possible, I took several measures to speed up development time and reduce the necessary number of iterations:
+
+<br /><br />
+
+<ul>
+	<li>By soldering wires to a second copy of the PCB and plugging it into a breadboard, I was able to work on setting up the programming toolchain in parallel with my work on building the jig.</li>
+	<li>I didn’t have access to an in-house laser cutter whose tolerances and kerf I could find precise information on. Instead of cutting holes into several pieces of acrylic in a guess-and-check fashion, I had a single piece of acrylic cut with several rows of holes, sized incrementally so that one of them would fit the pogo pins.</li>
+	<li>Since I didn’t know beforehand which row of holes would be the right one, I needed a way to adjust the location of the PCB on the fly. My solution was a 2-tiered mechanism that allowed for spatial adjustment in both horizontal dimensions. When the optimal locations were found that lined the pogo pins up with their points of contact on the PCB, the mechanism could be tightened into place.</li>
+</ul>
+
+</div>
+
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+
+
+  
+  </body>
+</html>
