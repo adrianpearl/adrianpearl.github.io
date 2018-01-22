@@ -1,0 +1,113 @@
+---
+---
+
+@import "jekyll-theme-minimal";
+
+.nav {
+	display: flex;
+	width: 100%;
+	/*background-color: #abc;*/
+	justify-content: space-around;
+	flex-direction: column;
+	color: #333;
+	transition: 0.5s;
+}
+
+.nav a {
+	color: #333;
+	transition: 0.5s;
+}
+
+.nav a:hover {
+	font-weight: normal;
+	color: #abc;
+}
+
+.photo-grid-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.photo-grid {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+
+	flex-direction: row;
+	align-items: center;
+}
+
+.photo-grid-item {
+	border: 1px solid #fff;
+	width: 30%;
+	height: auto;
+	margin-bottom: 10px;
+	overflow: hidden;
+	/*background-color: #abc;*/
+}
+
+figure {
+	margin: 0;
+	width: 100%;
+	/*background-color: #789;*/
+}
+
+.img-link {
+	overflow: hidden;
+}
+
+.img-link img {
+	vertical-align: middle;
+	transition: 0.2s;
+}
+
+.img-link img:hover {
+	transform: scale(1.1);
+}
+
+figcaption {
+	text-align: center;
+	height: 75px;
+	padding: 10px;
+	/*background-color: #cba;*/
+}
+
+.bodycontent {
+	width: 80%;
+	margin: auto;
+	font-size: 1.2em;
+	font-weight: light;
+	color: #555;
+	line-height: 150%;
+}
+
+.bodycontent a:hover {
+	font-weight: normal;
+}
+
+.media {
+	margin: 20px 0;
+}
+
+.media img {
+	width: 100%
+}
+
+.adrian {
+	max-width: 700px;
+}
+
+@media print, screen and (max-width: 1200px) {
+
+	.photo-grid-item {
+		width: 300px;
+	}
+}
+
+@media print, screen and (max-width: 720px) {
+	figcaption {height: auto;}
+	.nav {flex-direction: row;}
+	
+}
