@@ -451,6 +451,9 @@ footer {
     padding: 0.4in;
     font-size: 12pt;
     color: #444; } }
+h1 {
+  font-family: 'Questrial', sans-serif; }
+
 .nav {
   display: flex;
   width: 100%;
