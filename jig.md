@@ -4,13 +4,13 @@ layout: default
 
 <div class="bodycontent">
 
-<div class="media">
+<div class="media topimg">
 <img src='img/Jig/jig1.jpg'/>
 </div>
 
 During my time at Tomorrow Lab, I got the chance to lead a short-term client-facing project for a client that had a bunch of PCBs they needed to reprogram. The exact scope of work was to build a jig fixture designed specifically for the PCB the client was using, establish the simplest-possible toolchain for programming, and flash the chip with firmware provided by the client and verify that the program had been flashed correctly. We had some old jigs lying around, so I took one and removed the parts specific to the prior work it was used for, leaving only the base structure and the vertical translation mechanism.
 
-<div class="media" style="text-align:center">	
+<div class="media" style="text-align:center">
 <figure>
 	<img id="image" src="img/Jig/jig2.jpg">
 </figure> 	

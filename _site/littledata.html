@@ -46,7 +46,7 @@
 
       <div class="bodycontent">
 
-<div class="media">
+<div class="media topimg">
 <img src="img/LittleData/LittleData.gif" />
 </div>
 
@@ -55,8 +55,8 @@ A few years ago, a former Tomorrow Lab intern led a <a id="link" href="http://ww
 <div class="media" style="text-align:center">
 <figure>
 	<img id="image" src="img/LittleData/LittleData2.jpg" />
-</figure> 
-</div>	
+</figure>
+</div>
 
 I started by replacing the broken Teensy boards and rebuilding a set of commands on top of the <a id="link" href="https://github.com/pixelmatix/SmartMatrix">PixelMatrix</a> library that could draw or animate gradients or write text to the panels. With that done, I recreated from scratch a communication protocol between the Raspberry Pi and the Teensy boards by which the Pi could send serial messages, addressed to one of the three Teensies, that would be parsed on the Teensy side and interpreted as drawing commands. And lastly, I replaced the older Raspberry Pi and wifi attachment with the newer Model 3, which includes built-in wifi. I then put it back on line, recreated its small web page to accept basic text and configuration inputs, use Google and ForecastIO APIs to retrieve weather forecasts, and push this data to the panels.
 
