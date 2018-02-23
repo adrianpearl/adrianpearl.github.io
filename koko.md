@@ -4,7 +4,7 @@ layout: default
 
 <div class="bodycontent">
 
-<div class="media">
+<div class="media topimg">
 <img src='img/Koko/Koko1.jpg'/>
 </div>
 
