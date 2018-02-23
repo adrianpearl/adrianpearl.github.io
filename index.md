@@ -12,6 +12,13 @@ layout: default
         </figure>
     </div>
 
+    <div class='photo-grid-item'>
+        <figure>
+        <div class="img-link"><a href="scratch"><img src='img/Scratch/scratch.png'/></a></div>
+        <figcaption>Scratch: teaching kids to program with simple video games</figcaption>
+        </figure>
+    </div>
+
 	<div class='photo-grid-item'>
 	  <figure>
 	  <div class="img-link"><a href="koko"><img src='img/Koko/Koko1.jpg'/></a></div>
