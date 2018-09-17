@@ -8,7 +8,7 @@ layout: default
 <img src='img/LittleData/LittleData.gif'/>
 </div>
 
-A few years ago, a former Tomorrow Lab intern led a <a id="link" href="http://www.tomorrow-lab.com/lab30">really cool project</a> that repurposed some LED matrix panels (the kind they use for Times Square news tickers or halal food carts) into an artistic, cloud connected data display. It was a truly end-to-end piece of digital artwork. A raspberry pi ran a small server that could accept inputs over the internet and configure three <a id="link" href="https://www.pjrc.com/teensy/">Teensy 3.0</a> boards, each of which would drive the display on one of the panels. The panels could display localized data like weather, color gradients, or a few other options. Over time, the display had stopped working, and none of the software it was running could be recovered. So I set about rebuilding it piece by piece.
+A few years ago, a former Tomorrow Lab intern led a really cool project that repurposed some LED matrix panels (the kind they use for Times Square news tickers or halal food carts) into an artistic, cloud connected data display. It was a truly end-to-end piece of digital artwork. A raspberry pi ran a small server that could accept inputs over the internet and configure three <a id="link" href="https://www.pjrc.com/teensy/">Teensy 3.0</a> boards, each of which would drive the display on one of the panels. The panels could display localized data like weather, color gradients, or a few other options. Over time, the display had stopped working, and none of the software it was running could be recovered. So I set about rebuilding it piece by piece.
 
 <div class="media" style="text-align:center">
 <figure>
