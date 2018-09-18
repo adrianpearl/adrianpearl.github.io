@@ -1,5 +1,6 @@
 ---
 layout: default
+title: Adrian Pearl
 ---
 
 ## [What do New Yorkers complain about?](https://beta.observablehq.com/@adrianpearl/mapping-every-type-of-311-call-in-new-york-city)
@@ -16,7 +17,7 @@ An interactive visualization of over 40 years of U.S. exports and imports, with 
 
 ## [Usage of Federal Tax Provisions](http://www.searchtaxdata.com)
 ##### March 2018
-Different provisions of the federal tax code are beneficial (or costly) to taxpayers in different areas and at different income levels. The state and local income tax (SLIT) refund, for example, saves money for almost everyone in high-tax places like New York, while the capital gains provision is a boon to rich people everywhere. Search IRS data for any provision to find out where it affects taxpayers and in which income brackets.
+Different provisions of the federal tax code are beneficial (or costly) to taxpayers based on where they live and their income. The state and local income tax (SLIT) refund, for example, saves money for almost everyone in high-tax places like New York, while the capital gains provision is a boon to rich people everywhere. SearchTaxData is a web app to explore the effect of any provision across both of these dimensions.
 
 
 ### Prior Work 
