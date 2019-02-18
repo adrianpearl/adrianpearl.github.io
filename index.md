@@ -3,6 +3,18 @@ layout: default
 title: Adrian Pearl
 ---
 
+## [Enigma Datathon - Analyzing NYC Subway Data](./datathon)
+##### February 2019
+Several fellow students and I competed in a datathon and analyzed the relationships between subway ridership, street traffic, and and subway performance.
+
+***
+
+## [Fuzzy String Matching with TF-IDF](./fuzzystring)
+##### February 2019
+When you need to do 'fuzzy' string matching between two sets of strings with different formatting/spelling conventions, I recommend using TF-IDF vectorization.
+
+***
+
 ## [What do New Yorkers complain about?](https://beta.observablehq.com/@adrianpearl/mapping-every-type-of-311-call-in-new-york-city)
 ##### August 2018
 An interactive map of over 2 million complaints made through New York City's 311 hotline about city services, code violations, and other civic issues - broken down by neighborhood and complaint type.

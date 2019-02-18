@@ -47,7 +47,7 @@ a:hover small {
   color: #777; }
 
 .wrapper {
-  width: 860px;
+  width: 960px;
   margin: 0 auto; }
 
 blockquote {
@@ -143,7 +143,7 @@ header ul a strong {
   color: #222; }
 
 section {
-  width: 500px;
+  width: 600px;
   float: right;
   padding-bottom: 50px;
   /*background-color: #ced;*/ }
@@ -164,7 +164,7 @@ footer {
   bottom: 50px;
   -webkit-font-smoothing: subpixel-antialiased; }
 
-@media print, screen and (max-width: 960px) {
+@media print, screen and (max-width: 1060px) {
   div.wrapper {
     width: auto;
     margin: 0; }
@@ -558,9 +558,9 @@ figcaption {
   /*background-color: #cba;*/ }
 
 .bodycontent {
-  width: 80%;
+  width: 100%;
   margin: auto;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: light;
   color: #555;
   line-height: 150%; }
@@ -580,6 +580,9 @@ figcaption {
 
 .adrian {
   max-width: 700px; }
+
+.ylw {
+  background-color: yellow; }
 
 @media print, screen and (max-width: 1200px) {
   .photo-grid-item {

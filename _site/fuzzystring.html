@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Adrian Pearl</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Adrian Pearl" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/fuzzystring.html" />
+<meta property="og:url" content="http://localhost:4000/fuzzystring.html" />
+<meta property="og:site_name" content="Adrian Pearl" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://localhost:4000/fuzzystring.html","headline":"Adrian Pearl","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <a href=""> <h1>Adrian Pearl</h1> </a>
+        <p></p>
+
+        <div class="nav">
+        	<a href="/">WORK</a>
+        	<a href="about">ABOUT</a>
+        	<a href="mailto:adrian.pearl@nyu.edu">CONTACT</a>
+        </div>
+
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <h2 id="fuzzy-string-matching-with-tf-idf">Fuzzy String Matching with TF-IDF</h2>
+<h5 id="february-2019">February 2019</h5>
+<p>When you need to do ‘fuzzy’ string matching between two sets of strings with different formatting/spelling conventions, I recommend using TF-IDF vectorization.</p>
+
+<hr />
+
+<p>While competing in the <a href="./datathon">Enigma Datathon</a> at NYU, my team and I were analyzing a dataset of <a href="https://public.enigma.com/datasets/new-york-mta-fare-card-usage-2010-2018/1d76b5be-ff2c-4939-b2d3-14a97e656ce3">Metrocard usage</a> at New York City subway stations. Our goal was to obtain the precise location of each station, and ultimately do some spatial analysis of the relationship between ridership and other spatial data, like traffic conditions around the city. We found a database of station names and coordinates, but there was no ‘station ID’ field that could be used to match stations from the two datasets. Our only option was to use the station names, and here’s what the names from each dataset looked like:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>First Dataset (Metrocard Usage)</th>
+      <th>Second Dataset (Station Coordinates)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8TH AVENUE-14TH STREET</td>
+      <td>14 St</td>
+    </tr>
+    <tr>
+      <td>LAFAYETTE AVE FULTON ST</td>
+      <td>Lafayette Av</td>
+    </tr>
+    <tr>
+      <td>NOSTRAND AVE-FULTON ST</td>
+      <td>Fulton St</td>
+    </tr>
+    <tr>
+      <td>81ST STREET-MUSEUM</td>
+      <td>81 St Museum of Natural History</td>
+    </tr>
+    <tr>
+      <td>103RD ST-CENTRAL PARK WEST</td>
+      <td>103 St</td>
+    </tr>
+    <tr>
+      <td>VAN SICLEN AVE-PITKIN AVE</td>
+      <td>Van Siclen Av</td>
+    </tr>
+    <tr>
+      <td>86TH ST-CENTRAL PARK WEST</td>
+      <td>86 St</td>
+    </tr>
+    <tr>
+      <td>155TH STREET-ST NICHOLAS AV</td>
+      <td>155 St</td>
+    </tr>
+    <tr>
+      <td>34TH STREET &amp; 8TH AVENUE</td>
+      <td>34 St Penn Station</td>
+    </tr>
+    <tr>
+      <td>JAY ST-METROTECH</td>
+      <td>Jay St MetroTech</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The differences in formatting and spelling (‘Av’ vs ‘AVE’ vs ‘AVENUE’, etc.) make exact string matching impossible, but an even bigger problem is multiplicity. Of the hundreds of stations in New York, several are located at 34th street in some borough, and it takes some intelligence to figure out that ‘34TH STREET &amp; 8TH AVENUE’ corresponds to ‘34 St Penn Station’. Luckily, both datasets have access to the trains that stop at each station, so we appended them to the station names, adding ‘_TRAIN’ to each one so that a matching algorithm wouldn’t mistake a train number for a street number:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>First Dataset (Metrocard Usage)</th>
+      <th>Second Dataset (Station Coordinates)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8 TH Av 14 TH STREET A_TRAIN C_TRAIN E_TRAIN L_TRAIN</td>
+      <td>14 St A_TRAIN C_TRAIN E_TRAIN</td>
+    </tr>
+    <tr>
+      <td>LAFAYETTE AVE FULTON ST C_TRAIN</td>
+      <td>Lafayette Av C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>NOSTRAND AVE FULTON ST A_TRAIN C_TRAIN</td>
+      <td>Fulton St A_TRAIN C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>81 ST STREET MUSEUM B_TRAIN C_TRAIN</td>
+      <td>81 St Museum of Natural History B_TRAIN C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>103 RD ST CENTRAL PARK WEST B_TRAIN C_TRAIN</td>
+      <td>103 St B_TRAIN C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>VAN SICLEN AVE PITKIN AVE C_TRAIN</td>
+      <td>Van Siclen Av C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>86 TH ST CENTRAL PARK WEST B_TRAIN C_TRAIN</td>
+      <td>86 St B_TRAIN C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>155 TH STREET ST NICHOLAS AV C_TRAIN</td>
+      <td>155 St C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>34 TH STREET &amp; 8 TH Av A_TRAIN C_TRAIN E_TRAIN</td>
+      <td>34 St Penn Station A_TRAIN C_TRAIN E_TRAIN</td>
+    </tr>
+    <tr>
+      <td>JAY ST METROTECH A_TRAIN C_TRAIN F_TRAIN</td>
+      <td>Jay St MetroTech A_TRAIN C_TRAIN F_TRAIN</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This improves things, because each dataset will contain only one station that is both on 34th street and serves the C train, but also leads to other problems. We tried using a few ad-hoc methods, as well as SeatGeek’s <a href="https://github.com/seatgeek/fuzzywuzzy">fuzzywuzzy</a> package, that tokenized the strings and searched for matches based on the number of matching tokens. But if you look at the name ‘LAFAYETTE AVE FULTON ST C_TRAIN’, it has more tokens in common with ‘Fulton St A_TRAIN C_TRAIN’ than it does with its correct match, ‘Lafayette Av C_TRAIN’ (3 to 2).</p>
+
+<p>What we needed was a method that could incorporate all of the information, using train lines when necessary but ignoring them when more relevant information was available. In other words, we needed to <strong>weight</strong> the tokens according to their importance, and the best way to do this was TF-IDF vectorization. TF-IDF analyzes the corpus of words as a whole, and weights each token as more important to the string if it is less common in the corpus. This means that if two strings have a relatively rare term (‘Lafayette’) in common, this outweighs the importance of two more common terms (‘Fulton’ and ‘A_TRAIN’). Below, the same strings but with the important (rare) terms highlighted:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>First Dataset (Metrocard Usage)</th>
+      <th>Second Dataset (Station Coordinates)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>8 TH Av 14 TH STREET A_TRAIN C_TRAIN E_TRAIN L_TRAIN</td>
+      <td>14 St A_TRAIN C_TRAIN E_TRAIN</td>
+    </tr>
+    <tr>
+      <td><span class="ylw">LAFAYETTE</span> AVE FULTON ST C_TRAIN</td>
+      <td><span class="ylw">Lafayette</span> Av C_TRAIN</td>
+    </tr>
+    <tr>
+      <td><span class="ylw">NOSTRAND</span> AVE FULTON ST A_TRAIN C_TRAIN</td>
+      <td>Fulton St A_TRAIN C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>81 ST STREET <span class="ylw">MUSEUM</span> B_TRAIN C_TRAIN</td>
+      <td>81 St <span class="ylw">Museum</span> of <span class="ylw">Natural</span> <span class="ylw">History</span> B_TRAIN C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>103 RD ST <span class="ylw">CENTRAL</span> PARK WEST B_TRAIN C_TRAIN</td>
+      <td>103 St B_TRAIN C_TRAIN</td>
+    </tr>
+    <tr>
+      <td><span class="ylw">VAN</span> <span class="ylw">SICLEN</span> AVE <span class="ylw">PITKIN</span> AVE C_TRAIN</td>
+      <td><span class="ylw">Van</span> <span class="ylw">Siclen</span> Av C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>86 TH ST <span class="ylw">CENTRAL</span> PARK WEST B_TRAIN C_TRAIN</td>
+      <td>86 St B_TRAIN C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>155 TH STREET ST <span class="ylw">NICHOLAS</span> AV C_TRAIN</td>
+      <td>155 St C_TRAIN</td>
+    </tr>
+    <tr>
+      <td>34 TH STREET &amp; 8 TH Av A_TRAIN C_TRAIN E_TRAIN</td>
+      <td>34 St <span class="ylw">Penn</span> Station A_TRAIN C_TRAIN E_TRAIN</td>
+    </tr>
+    <tr>
+      <td><span class="ylw">JAY</span> ST <span class="ylw">METROTECH</span> A_TRAIN C_TRAIN F_TRAIN</td>
+      <td><span class="ylw">Jay</span> St <span class="ylw">MetroTech</span> A_TRAIN C_TRAIN F_TRAIN</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To sum up, I had never heard of TF-IDF being used in this way, but it ended up working way better than anything else we tried. If you are ever in a similar situation, think about using it!</p>
+
+
+      </section>
+      <footer>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+
+
+  
+  </body>
+</html>

@@ -81,9 +81,9 @@ figcaption {
 }
 
 .bodycontent {
-	width: 80%;
+	width: 100%;
 	margin: auto;
-	font-size: 1.2em;
+	font-size: 1em;
 	font-weight: light;
 	color: #555;
 	line-height: 150%;
@@ -108,6 +108,10 @@ figcaption {
 
 .adrian {
 	max-width: 700px;
+}
+
+.ylw {
+	background-color: yellow;
 }
 
 @media print, screen and (max-width: 1200px) {
