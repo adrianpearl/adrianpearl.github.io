@@ -5,7 +5,7 @@ title: Adrian Pearl
 
 ## [Enigma Datathon - Analyzing NYC Subway Data](./datathon)
 ##### February 2019
-Several fellow students and I competed in a datathon and analyzed the relationships between subway ridership, street traffic, and and subway performance.
+Several fellow students and I competed in a datathon and analyzed the relationships between subway ridership, street traffic, and subway performance.
 
 ***
 
