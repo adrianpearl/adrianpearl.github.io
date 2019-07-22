@@ -7,9 +7,9 @@
 
     <script>
       Promise.all([
-        d3.csv("MPI_region_contributions.csv"),
-        d3.csv("MPI_country_contributions.csv"),
-        d3.csv("MPI_subnational_contributions.csv")
+        d3.csv("MPI/MPI_region_contributions.csv"),
+        d3.csv("MPI/MPI_country_contributions.csv"),
+        d3.csv("MPI/MPI_subnational_contributions.csv")
       ]).then(function(files) {
         let regions = files[0], countries = files[1], subnational = files[2];
 
