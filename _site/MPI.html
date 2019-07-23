@@ -14,6 +14,7 @@
         let regions = files[0], countries = files[1], subnational = files[2];
 
         let ind = Object.keys(countries[0]).slice(11, 21);
+        let max_MPI = 0.711
 
         regions = regions.map(function(d) {
           d["Headcount"] = +d["Headcount"];
@@ -67,17 +68,17 @@
 
         const margin = { top: 30, right: 100, bottom: 30, left: 10 };
         const height = 600,
-          width = 1200;
+          width = 1100;
 
         x = d3
           .scaleBand()
           .domain(["regions", "countries", "subnational"])
           .range([margin.left, width - margin.right])
-          .paddingInner(0.26);
+          .paddingInner(0.1);
 
         x_regions = d3
           .scaleLinear()
-          .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
+          .domain([0, max_MPI]) //d3.max(series, d => d3.max(d, d => d[1]))])
           .range([x("regions"), x("regions") + x.bandwidth()]);
 
         y_range = [height - margin.bottom, margin.top];
@@ -94,7 +95,7 @@
           .append("svg")
           .attr("width", width)
           .attr("height", height)
-          .attr("font-family", "system-ui")
+          .attr("font-family", "sans-serif, system-ui")
           .attr("font-size", "11");
 
         let x_legend = d3.scaleBand()
@@ -233,7 +234,7 @@
           .text(d => d.data.region);
 
         function chart_countries(d) {
-          console.log(d);
+          //console.log(d);
           region = d.data.region;
           if (region === current_region) {return;}
           current_region = region;
@@ -260,11 +261,11 @@
           x_countries = d3
             .scaleLinear()
             .domain([
-              0,
-              100 *
+              0, 100*max_MPI
+              /*100 *
                 d3.max(
                   rcountries.map(d => d["Multidimensional Poverty Index (MPI)"])
-                )
+                )*/
             ])
             .range([x("countries"), x("countries") + x.bandwidth()]);
 
@@ -358,7 +359,7 @@
         }
 
         function chart_subnational(d) {
-          console.log(d);
+          //console.log(d);
           let country = d.data.Country;
           if (country === current_country) {return;}
           current_country = country;
@@ -387,11 +388,11 @@
           x_subnational = d3
             .scaleLinear()
             .domain([
-              0,
-              100 *
+              0, 100*max_MPI
+              /*100 *
                 d3.max(
                   csubnational.map(d => d["MPI of the region"])
-                )
+                )*/
             ])
             .range([x("subnational"), x("subnational") + x.bandwidth()]);
 
