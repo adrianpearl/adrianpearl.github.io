@@ -262,10 +262,6 @@
             .scaleLinear()
             .domain([
               0, 100*max_MPI
-              /*100 *
-                d3.max(
-                  rcountries.map(d => d["Multidimensional Poverty Index (MPI)"])
-                )*/
             ])
             .range([x("countries"), x("countries") + x.bandwidth()]);
 
@@ -389,10 +385,6 @@
             .scaleLinear()
             .domain([
               0, 100*max_MPI
-              /*100 *
-                d3.max(
-                  csubnational.map(d => d["MPI of the region"])
-                )*/
             ])
             .range([x("subnational"), x("subnational") + x.bandwidth()]);
 
