@@ -3,6 +3,12 @@ layout: default
 title: Adrian Pearl
 ---
 
+## [2019 Multidimensional Poverty Index - Going beyond averages](http://hdr.undp.org/en/content/2019-mpi-going-beyond-averages-show-subnational-disparities)
+##### July 2019
+In July, the UN Human Development Report Office and the Oxford Poverty and Human Development Initiative released the 2019 global MPI. This interactive data story accompanies the release and shows stark regional and subnational disparities in multidimensional poverty.
+
+***
+
 ## [Enigma Datathon - Analyzing NYC Subway Data](./datathon)
 ##### February 2019
 Several fellow students and I competed in a datathon and analyzed the relationships between subway ridership, street traffic, and subway performance.
@@ -38,7 +44,7 @@ Different provisions of the federal tax code are beneficial (or costly) to taxpa
 
 ## [Teaching kids to program with video games](./scratch)
 ##### September 2017 - June 2018
-A little about my work teaching elementary and middle school students the basics of programming and computational thinking during the 2017-18 academic year.
+A little bit about my work teaching elementary and middle school students the basics of programming and computational thinking during the 2017-18 academic year.
 
 ***
 
