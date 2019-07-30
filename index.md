@@ -5,7 +5,7 @@ title: Adrian Pearl
 
 ## [2019 Multidimensional Poverty Index - Going beyond averages](http://hdr.undp.org/en/content/2019-mpi-going-beyond-averages-show-subnational-disparities)
 ##### July 2019
-In July, the UN Human Development Report Office and the Oxford Poverty and Human Development Initiative released the 2019 global MPI. This interactive data story accompanies the release and shows stark regional and subnational disparities in multidimensional poverty.
+In July, the UN Human Development Report Office and the Oxford Poverty and Human Development Initiative released the 2019 global MPI. This interactive data story accompanying the release goes beyond averages to show stark regional and subnational disparities in multidimensional poverty.
 
 ***
 
