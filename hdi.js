@@ -119,17 +119,16 @@ var grouppath = svg.append("path")
   .attr("id", d => 'group');
 
 let grouplabel = svg.append("g")
-  .attr("font-size", 12)
-  .attr("font-weight", "bold")
   .selectAll("text")
   .data(arcs)
-  .join("text");
-
-grouplabel.append("textPath")
-  .attr("startOffset", d => `${12.5 * (d.endAngle + d.startAngle) / Math.PI}%`)
-  .attr("side", "right")
-  .attr("xlink:href", d => '#' + 'group')
-  .text(d => d.data.group + ' human development');
+  .join("text")
+    .attr("font-size", 12)
+    .attr("font-weight", "bold")
+  .append("textPath")
+    .attr("startOffset", d => `${12.5 * (d.endAngle + d.startAngle) / Math.PI}%`)
+    .attr("side", "right")
+    .attr("xlink:href", d => '#' + 'group')
+    .text(d => d.data.group + ' human development');
 
 var poppath = svg.append("path")
   .attr("fill", "#E0E0E0")
@@ -145,12 +144,11 @@ let poplabel = svg.append("g")
   .selectAll("text")
   .data(arcs)
   .join("text")
-  .attr("dy", 12);
-
-poplabel.append("textPath")
-  .attr("startOffset", d => `${100 * innerRad * (d.endAngle + d.startAngle) / (4*Math.PI*(2*innerRad - 16))}%`)
-  .attr("xlink:href", d => '#' + 'pop')
-  .text(d => d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
+    .attr("dy", 12)
+  .append("textPath")
+    .attr("startOffset", d => `${100 * innerRad * (d.endAngle + d.startAngle) / (4*Math.PI*(2*innerRad - 16))}%`)
+    .attr("xlink:href", d => '#' + 'pop')
+    .text(d => d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
 
 svg.append("g")
   .call(yAxis);
@@ -170,7 +168,7 @@ function change() {
     .duration(750)
     .attrTween("d", arcTween); // redraw the arcs
   
-  hdilabel = hdilabel.data(arcs)
+  hdilabel = hdilabel.data(arcs);
   hdilabel.select("textPath")
     .transition()
     .duration(750)
@@ -181,20 +179,24 @@ function change() {
     });
 
   grouplabel = grouplabel.data(arcs);
-  grouplabel.select("textpath")
+  grouplabel
     .transition()
     .duration(750)
-    .attr("startOffset", d => `${12.5 * (d.endAngle + d.startAngle) / Math.PI}%`);
+    .attr("startOffset", function(d) {
+      console.log('transitioning')
+      return `${12.5 * (d.endAngle + d.startAngle) / Math.PI}%`;
+    });
 
   poplabel = poplabel.data(arcs);
-  poplabel.select("textpath")
+  poplabel
     .transition()
     .duration(750)
     .attr("startOffset", d => `${100 * innerRad * (d.endAngle + d.startAngle) / (4*Math.PI*(2*innerRad - 16))}%`)
     .text(d => d.data.pop + ' bn')
-    .on('end', function() {
-      d3.select(this).text(d => d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
+    .on('end', function(d) {
+      d3.select(this).text(d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
     })
+
 }
 
 // Store the displayed angles in _current.
