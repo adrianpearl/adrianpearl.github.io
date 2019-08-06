@@ -13,9 +13,11 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
     const colors = [
       "#E6233C", "#C61E68", "#2ABEE2"
     ];
-    const margin = { top: 80, right: 60, bottom: 20, left: 60 };
-    const height = 750, width = 1100;
-    const plotheight = 150
+    const margin = { top: 40, right: 60, bottom: 20, left: 60 };
+    const height = window.innerHeight*0.9, width = window.innerWidth*0.9;
+    console.log(height, width);
+    const plotheight = height*0.22;
+    console.log(plotheight);
     const group_types = ["Upper middle income", "Lower middle income", "Low income"]
     const titles = [
       "Upper-middle-income countries (94 million multidimensionally poor people)",
@@ -27,7 +29,7 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
       .scaleBand()
       .domain(group_types)
       .range([margin.top, height - margin.bottom])
-      .paddingInner(0.1);
+      .paddingInner(0);
 
     const color = d3
       .scaleOrdinal()
@@ -45,17 +47,19 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
       .domain([25, 80])
       .range([plotheight, 0]);
 
+    console.log(x.range());
+
     const radius = d3.scaleSqrt()
       .domain([0, d3.max(subnational.map(d => d.MPI_pop))])
       .range([0, 50]);
 
     let svg = d3
-      .select("body")
+      .select("#graphic")
       .append("svg")
       .attr("width", width)
       .attr("height", height)
       .attr("font-family", "system-ui")
-      .attr("font-size", "11");
+      .attr("font-size", "1.5vmin");
 
     // BACKGROUND
     svg.append("rect").attr("width", width).attr("height", height).attr("fill", "#eee");
@@ -72,6 +76,7 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
         .attr("x", -10)
         .attr("y", -10)
         .attr("text-anchor", "start")
+        .attr("font-size", "1.5vmin")
         .text("Intensity (percent)"));
     
     for (var g in group_types) {
@@ -85,9 +90,9 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
 
       svg.append("text")
         .attr("x", width/2)
-        .attr("y", y_groups(grp))
+        .attr("y", y_groups(grp) + 10)
         .attr("fill", "black")
-        .attr("font-size", 12)
+        //.attr("font-size", 12)
         .attr("font-weight", "bold")
         .attr("text-anchor", "middle")
         .text(title);
@@ -97,7 +102,7 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
       .attr("x", width/2)
       .attr("y", height - margin.bottom)
       .attr("fill", "black")
-      .attr("font-size", 10)
+      //.attr("font-size", 10)
       .attr("text-anchor", "middle")
       .text('Incidence (percent)');
 

@@ -22,6 +22,7 @@ const data = [
   {group: 'Low', pop90: 3.172, hdi90: 0.450, pop18: 0.926, hdi18: 0.904}
 ]
 */
+
 const mobile = ( navigator.userAgent.match(/Android/i)
  || navigator.userAgent.match(/webOS/i)
  || navigator.userAgent.match(/iPhone/i)
