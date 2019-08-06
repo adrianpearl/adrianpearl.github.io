@@ -22,9 +22,18 @@ const data = [
   {group: 'Low', pop90: 3.172, hdi90: 0.450, pop18: 0.926, hdi18: 0.904}
 ]
 */
+const mobile = ( navigator.userAgent.match(/Android/i)
+ || navigator.userAgent.match(/webOS/i)
+ || navigator.userAgent.match(/iPhone/i)
+ || navigator.userAgent.match(/iPad/i)
+ || navigator.userAgent.match(/iPod/i)
+ || navigator.userAgent.match(/BlackBerry/i)
+ || navigator.userAgent.match(/Windows Phone/i));
 
-const width = 500;
-const height = Math.min(width, 500)
+const small = Math.min(window.innerHeight, window.innerWidth)
+console.log(small);
+const width = mobile != null ? 0.9*small : 500;
+const height = width;
 const margin = 20;
 
 const colors = ['#B6579F', '#F6D952', '#F09A52', '#ED2E6C'];
@@ -47,7 +56,7 @@ let svg = d3
   .attr("viewBox", [-width / 2, -height / 2, width, height])
   .attr("font-family", "sans-serif")
   .attr("text-anchor", "middle")
-  .attr("font-size", "11");
+  .attr("font-size", "1.7vmin");
 
 let y = d3.scaleLinear()
   .range([innerRad + 0.33*(outerRad - innerRad), outerRad]);
@@ -88,7 +97,7 @@ var path = svg.selectAll("path")
     .each(function(d) { this._current = d; });
 
 let title = svg.append("g")
-  .attr("font-size", 24)
+  .attr("font-size", "4vmin")
   .attr("font-weight", "bold")
   //.attr("transform", d => `translate(${width/2, height/2})`)
 tyear = title.append("text")
@@ -122,7 +131,7 @@ let grouplabel = svg.append("g")
   .selectAll("text")
   .data(arcs)
   .join("text")
-    .attr("font-size", 12)
+    //.attr("font-size", 12)
     .attr("font-weight", "bold")
   .append("textPath")
     .attr("startOffset", d => `${12.5 * (d.endAngle + d.startAngle) / Math.PI}%`)
@@ -139,7 +148,7 @@ var poppath = svg.append("path")
   .attr("id", d => 'pop');
 
 let poplabel = svg.append("g")
-  .attr("font-size", 11)
+  //.attr("font-size", 11)
   .selectAll("text")
   .data(arcs)
   .join("text")
