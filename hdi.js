@@ -35,9 +35,6 @@ const color = d3.scaleOrdinal()
 const outerRad = Math.min(width, height) / 2 - margin;
 const innerRad = outerRad / 3;
 
-let textarc = d3.arc()
-  .innerRadius(outerRad + 3)
-  .outerRadius(outerRad + 3);
 let arc = d3.arc()
   .innerRadius(innerRad)
   .outerRadius(outerRad - 1);
@@ -77,7 +74,10 @@ let largest_group  = data[year].reduce(function(prev, current) {
 }).group
 
 let arcs = pie(data[year]);
-arcs.forEach(d => d.rad = d.data.hdi*(outerRad - innerRad) + innerRad);
+arcs.forEach(function(d) {
+  d.rad = d.data.hdi*(outerRad - innerRad) + innerRad;
+  d.midAngle = (d.startAngle + d.endAngle) / 2;
+});
 
 var path = svg.selectAll("path")
   .data(arcs)
@@ -126,7 +126,6 @@ let grouplabel = svg.append("g")
     .attr("font-weight", "bold")
   .append("textPath")
     .attr("startOffset", d => `${12.5 * (d.endAngle + d.startAngle) / Math.PI}%`)
-    .attr("side", "right")
     .attr("xlink:href", d => '#' + 'group')
     .text(d => d.data.group + ' human development');
 
@@ -213,4 +212,8 @@ function arcTween(a) {
 function offset(a) {
   const theta = a.endAngle - a.startAngle;
   return 100*0.5*a.rad*theta / ((a.rad + innerRad)*theta + 2*(a.rad - innerRad));
+}
+
+function reverse(a) {
+  return a.midAngle > Math.PI/2 && a.midAngle < 3*Math.PI/2;
 }
