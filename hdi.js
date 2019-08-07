@@ -30,9 +30,7 @@ const mobile = ( navigator.userAgent.match(/Android/i)
  || navigator.userAgent.match(/BlackBerry/i)
  || navigator.userAgent.match(/Windows Phone/i));
 
-const small = Math.min(window.innerHeight, window.innerWidth)
-console.log(small);
-const width = mobile != null ? 0.9*small : 500;
+const width = mobile != null ? 0.9*window.innerWidth : 500;
 const height = width;
 const margin = 20;
 const dur = 1500;
