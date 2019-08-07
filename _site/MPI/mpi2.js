@@ -13,11 +13,9 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
     const colors = [
       "#E6233C", "#C61E68", "#2ABEE2"
     ];
-    const margin = { top: 40, right: 60, bottom: 20, left: 60 };
-    const height = window.innerHeight*0.9, width = window.innerWidth*0.9;
-    console.log(height, width);
-    const plotheight = height*0.22;
-    console.log(plotheight);
+    const height = Math.min(window.innerHeight*0.9, 1600), width = window.innerWidth*0.9;
+    const margin = { top: height/10, right: 60, bottom: height/40, left: 60 };
+    const plotheight = height/5;
     const group_types = ["Upper middle income", "Lower middle income", "Low income"]
     const titles = [
       "Upper-middle-income countries (94 million multidimensionally poor people)",
@@ -47,8 +45,6 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
       .domain([25, 80])
       .range([plotheight, 0]);
 
-    console.log(x.range());
-
     const radius = d3.scaleSqrt()
       .domain([0, d3.max(subnational.map(d => d.MPI_pop))])
       .range([0, 50]);
@@ -59,7 +55,7 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
       .attr("width", width)
       .attr("height", height)
       .attr("font-family", "system-ui")
-      .attr("font-size", "1.5vmin");
+      .attr("font-size", "2vmin");
 
     // BACKGROUND
     svg.append("rect").attr("width", width).attr("height", height).attr("fill", "#eee");
@@ -73,8 +69,8 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
       .call(d3.axisLeft(y).ticks(5).tickSizeOuter(0))
       .call(g => g.append("text")
         .attr("fill", "#000")
-        .attr("x", -10)
-        .attr("y", -10)
+        .attr("x", 10)
+        .attr("y", 10)
         .attr("text-anchor", "start")
         .attr("font-size", "1.5vmin")
         .text("Intensity (percent)"));
@@ -90,7 +86,7 @@ d3.csv("MPI/MPI_subnational_contributions.csv").then(function(subnational) {
 
       svg.append("text")
         .attr("x", width/2)
-        .attr("y", y_groups(grp) + 10)
+        .attr("y", y_groups(grp) - 10)
         .attr("fill", "black")
         //.attr("font-size", 12)
         .attr("font-weight", "bold")
