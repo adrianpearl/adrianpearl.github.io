@@ -1,10 +1,9 @@
-// 1990 DATA IS FAKE
 const data = {
   1990: [
-    {group: 'Very high', pop: 0.628, hdi: 0.505},
-    {group: 'High', pop: 0.793, hdi: 0.771},
-    {group: 'Medium', pop: 0.793, hdi: 0.620},
-    {group: 'Low', pop: 3.072, hdi: 0.450}
+    {group: 'Very high', pop: 0.549, hdi: 0.787},
+    {group: 'High', pop: 0.667, hdi: 0.571},
+    {group: 'Medium', pop: 0.792, hdi: 0.462},
+    {group: 'Low', pop: 2.893, hdi: 0.351}
   ],
   2018: [
     {group: 'Very high', pop: 1.439, hdi: 0.894},
@@ -36,6 +35,7 @@ console.log(small);
 const width = mobile != null ? 0.9*small : 500;
 const height = width;
 const margin = 20;
+const dur = 1500;
 
 const colors = ['#B6579F', '#F6D952', '#F09A52', '#ED2E6C'];
 const color = d3.scaleOrdinal()
@@ -57,7 +57,7 @@ let svg = d3
   .attr("viewBox", [-width / 2, -height / 2, width, height])
   .attr("font-family", "sans-serif")
   .attr("text-anchor", "middle")
-  .attr("font-size", "1.7vmin");
+  .attr("font-size", mobile ? "1.1em" : "0.7em");
 
 let y = d3.scaleLinear()
   .range([innerRad + 0.33*(outerRad - innerRad), outerRad]);
@@ -98,7 +98,7 @@ var path = svg.selectAll("path")
     .each(function(d) { this._current = d; });
 
 let title = svg.append("g")
-  .attr("font-size", "4vmin")
+  .attr("font-size", "2em")
   .attr("font-weight", "bold")
   //.attr("transform", d => `translate(${width/2, height/2})`)
 tyear = title.append("text")
@@ -117,6 +117,20 @@ let hdilabel = svg.append("g")
 hdilabel.append("textPath")
   .attr("xlink:href", d => "#" + d.data.group)
   .attr("startOffset", d => `${offset(d)}%`)
+  .attr("display", d => reverse(d) ? "none" : "inherit")
+  .text(d => d.data.hdi);
+
+let hdireverse = svg.append("g")
+  .selectAll("text")
+  .data(arcs)
+  .join("text")
+  .attr("letter-spacing", d => -4*d.rad/outerRad)
+  .attr("dy", d => d.rad - innerRad + 12 + (mobile ? 8 : 0))
+
+hdireverse.append("textPath")
+  .attr("xlink:href", d => "#" + d.data.group)
+  .attr("startOffset", d => `${reverse_offset(d)}%`)
+  .attr("display", d => reverse(d) ? "inherit" : "none")
   .text(d => d.data.hdi);
 
 var grouppath = svg.append("path")
@@ -135,29 +149,67 @@ let grouplabel = svg.append("g")
     //.attr("font-size", 12)
     .attr("font-weight", "bold")
   .append("textPath")
-    .attr("startOffset", d => `${12.5 * (d.endAngle + d.startAngle) / Math.PI}%`)
+    .attr("display", d => reverse(d) ? "none" : "inherit")
+    .attr("startOffset", d => `${circle_offset(d)}%`)
     .attr("xlink:href", d => '#' + 'group')
     .text(d => d.data.group + ' human development');
 
-var poppath = svg.append("path")
+let groupreverse = svg.append("g")
+  .selectAll("text")
+  .data(arcs)
+  .join("text")
+    //.attr("font-size", 12)
+    .attr("font-weight", "bold")
+    .attr("dy", "0.7em")
+  .append("textPath")
+    .attr("display", d => reverse(d) ? "inherit" : "none")
+    .attr("startOffset", d => `${100 - circle_offset(d)}%`)
+    .attr("xlink:href", d => '#' + 'group')
+    .text(d => d.data.group + ' human development');
+
+var greyband = svg.append("path")
   .attr("fill", "#E0E0E0")
   .attr("d", d => d3.arc()
-      .innerRadius(innerRad - 16)
+      .innerRadius(innerRad*0.8)
       .outerRadius(innerRad)
       .startAngle(0)
       .endAngle(2*Math.PI)())
-  .attr("id", d => 'pop');
+
+let poppath = svg.append("path")
+  .attr("d", d => d3.arc()
+      .innerRadius(innerRad)
+      .outerRadius(innerRad)
+      .startAngle(0)
+      .endAngle(2*Math.PI)())
+      .attr("id", d => 'pop');
 
 let poplabel = svg.append("g")
   //.attr("font-size", 11)
   .selectAll("text")
   .data(arcs)
   .join("text")
-    .attr("dy", 12)
+    .attr("dy", "1.1em")
+    .attr("letter-spacing", 1.2)
   .append("textPath")
-    .attr("startOffset", d => `${100 * innerRad * (d.endAngle + d.startAngle) / (4*Math.PI*(2*innerRad - 16))}%`)
+    .attr("display", d => reverse(d) ? "none" : "inherit")
+    .attr("startOffset", d => `${circle_offset(d)}%`)
     .attr("xlink:href", d => '#' + 'pop')
     .text(d => d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
+
+let popreverse = svg.append("g")
+  //.attr("font-size", 11)
+  .selectAll("text")
+  .data(arcs)
+  .join("text")
+    .attr("dy", "-0.4em")
+    .attr("letter-spacing", 1.2)
+  .append("textPath")
+    .attr("display", d => reverse(d) ? "inherit" : "none")
+    .attr("startOffset", d => `${100 - circle_offset(d)}%`)
+    .attr("xlink:href", d => '#' + 'pop')
+    .text(d => d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
+
+
 
 svg.append("g")
   .call(yAxis);
@@ -171,36 +223,77 @@ function change() {
   tyear.text(year);
   //pie.value(function(d) { return d.pop; }); // change the value function
   arcs = pie(data[year]);
-  arcs.forEach(d => d.rad = d.data.hdi*(outerRad - innerRad) + innerRad);
+  arcs.forEach(function(d) {
+    d.rad = d.data.hdi*(outerRad - innerRad) + innerRad;
+    d.midAngle = (d.startAngle + d.endAngle) / 2;
+  });
   path = path.data(arcs); // compute the new angles
   path.transition()
-    .duration(750)
+    .duration(dur)
     .attrTween("d", arcTween); // redraw the arcs
   
   hdilabel = hdilabel.data(arcs);
   hdilabel.select("textPath")
+    .attr("display", d => reverse(d) ? "none" : "inherit")
     .transition()
-    .duration(750)
+    .duration(dur)
       .attr("startOffset", d => `${offset(d)}%`)
       .text(d => d.data.hdi)
     .on('end', function() {
-      d3.select(this).text(d => (d.data.group == largest_group ? 'Human Development Index value: ' : '') + d.data.hdi);
+      d3.select(this).text(d => d.data.hdi)// (d.data.group == largest_group ? 'Human Development Index value: ' : '') + d.data.hdi);
+    });
+
+  hdireverse = hdireverse.data(arcs);
+  hdireverse
+    .transition()
+    .duration(dur)
+      .attr("letter-spacing", d => -4*d.rad/outerRad)
+      .attr("dy", d => d.rad - innerRad + 12 + (mobile ? 8 : 0));
+  hdireverse.select("textPath")
+    .attr("display", d => reverse(d) ? "inherit" : "none")
+    .transition()
+    .duration(dur)
+      .attr("startOffset", d => `${reverse_offset(d)}%`)
+      .text(d => d.data.hdi)
+    .on('end', function() {
+      d3.select(this).text(d => d.data.hdi) //(d.data.group == largest_group ? 'Human Development Index value: ' : '') + d.data.hdi);
     });
 
   grouplabel = grouplabel.data(arcs);
   grouplabel
+    .attr("display", d => reverse(d) ? "none" : "inherit")
     .transition()
-    .duration(750)
+    .duration(dur)
     .attr("startOffset", function(d) {
-      console.log('transitioning')
       return `${12.5 * (d.endAngle + d.startAngle) / Math.PI}%`;
+    });
+
+  groupreverse = groupreverse.data(arcs);
+  groupreverse
+    .attr("display", d => reverse(d) ? "inherit" : "none")
+    .transition()
+    .duration(dur)
+    .attr("startOffset", function(d) {
+      return `${100 - 12.5 * (d.endAngle + d.startAngle) / Math.PI}%`;
     });
 
   poplabel = poplabel.data(arcs);
   poplabel
+    .attr("display", d => reverse(d) ? "none" : "inherit")
     .transition()
-    .duration(750)
-    .attr("startOffset", d => `${100 * innerRad * (d.endAngle + d.startAngle) / (4*Math.PI*(2*innerRad - 16))}%`)
+    .duration(dur)
+    .attr("startOffset", d => `${circle_offset(d)}%`)
+    .text(d => d.data.pop + ' bn')
+    .on('end', function(d) {
+      d3.select(this).text(d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
+    })
+
+  popreverse = popreverse.data(arcs);
+  popreverse
+    .attr("display", d => reverse(d) ? "inherit" : "none")
+    .transition()
+    .duration(dur)
+    .attr("startOffset", d => `${100 - circle_offset(d)}%`)
     .text(d => d.data.pop + ' bn')
     .on('end', function(d) {
       d3.select(this).text(d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
@@ -224,6 +317,15 @@ function offset(a) {
   return 100*0.5*a.rad*theta / ((a.rad + innerRad)*theta + 2*(a.rad - innerRad));
 }
 
+function circle_offset(a) {
+  return 12.5 * (a.endAngle + a.startAngle) / Math.PI;
+}
+
 function reverse(a) {
   return a.midAngle > Math.PI/2 && a.midAngle < 3*Math.PI/2;
+}
+
+function reverse_offset(a) {
+  const theta = a.endAngle - a.startAngle;
+  return 100*(theta*(a.rad + 0.5*innerRad) + a.rad - innerRad) / ((a.rad + innerRad)*theta + 2*(a.rad - innerRad));
 }
