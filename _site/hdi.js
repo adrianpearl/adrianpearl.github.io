@@ -1,11 +1,41 @@
 const data = {
   1990: [
-    {group: 'Very high', pop: 0.549, hdi: 0.787},
-    {group: 'High', pop: 0.667, hdi: 0.571},
-    {group: 'Medium', pop: 0.792, hdi: 0.462},
-    {group: 'Low', pop: 2.893, hdi: 0.351}
+    {group: 'Very high', pop: 0.512, hdi: 0.839},
+    {group: 'High', pop: 0.624, hdi: 0.745},
+    {group: 'Medium', pop: 0.748, hdi: 0.619},
+    {group: 'Low', pop: 2.751, hdi: 0.460}
   ],
-  2018: [
+  1995: [
+    {group: 'Very high', pop: 0.763, hdi: 0.849},
+    {group: 'High', pop: 0.355, hdi: 0.737},
+    {group: 'Medium', pop: 2.264, hdi: 0.600},
+    {group: 'Low', pop: 1.694, hdi: 0.436}
+  ],
+  2000: [
+    {group: 'Very high', pop: 0.846, hdi: 0.865},
+    {group: 'High', pop: 0.478, hdi: 0.743},
+    {group: 'Medium', pop: 2.340, hdi: 0.625},
+    {group: 'Low', pop: 1.816, hdi: 0.461}
+  ],
+  2005: [
+    {group: 'Very high', pop: 0.964, hdi: 0.880},
+    {group: 'High', pop: 0.710, hdi: 0.741},
+    {group: 'Medium', pop: 2.198, hdi: 0.653},
+    {group: 'Low', pop: 1.986, hdi: 0.498}
+  ],
+  2010: [
+    {group: 'Very high', pop: 1.084, hdi: 0.891},
+    {group: 'High', pop: 2.277, hdi: 0.727},
+    {group: 'Medium', pop: 1.810, hdi: 0.612},
+    {group: 'Low', pop: 1.073, hdi: 0.498}
+  ],
+  2015: [
+    {group: 'Very high', pop: 1.298, hdi: 0.892},
+    {group: 'High', pop: 2.189, hdi: 0.752},
+    {group: 'Medium', pop: 2.404, hdi: 0.636},
+    {group: 'Low', pop: 0.752, hdi: 0.497}
+  ],
+  2017: [
     {group: 'Very high', pop: 1.439, hdi: 0.894},
     {group: 'High', pop: 2.379, hdi: 0.757},
     {group: 'Medium', pop: 2.733, hdi: 0.645},
@@ -30,14 +60,14 @@ const mobile = ( navigator.userAgent.match(/Android/i)
  || navigator.userAgent.match(/BlackBerry/i)
  || navigator.userAgent.match(/Windows Phone/i));
 
-const width = mobile != null ? 0.9*window.innerWidth : 500;
+const width = 500; //mobile != null ? 0.9*window.innerWidth : 500;
 const height = width;
 const margin = 20;
 const dur = 1500;
 
 const colors = ['#B6579F', '#F6D952', '#F09A52', '#ED2E6C'];
 const color = d3.scaleOrdinal()
-  .domain(data[2018].map(d => d.group))
+  .domain(data[2017].map(d => d.group))
   .range(colors);
 
 const outerRad = Math.min(width, height) / 2 - margin;
@@ -55,7 +85,7 @@ let svg = d3
   .attr("viewBox", [-width / 2, -height / 2, width, height])
   .attr("font-family", "sans-serif")
   .attr("text-anchor", "middle")
-  .attr("font-size", mobile ? "1.1em" : "0.7em");
+  .attr("font-size", "0.7em");
 
 let y = d3.scaleLinear()
   .range([innerRad + 0.33*(outerRad - innerRad), outerRad]);
@@ -76,12 +106,12 @@ const pie = d3.pie()
   .sort(null)
   .value(d => d.pop);
 
-let year = 1990;
-let largest_group  = data[year].reduce(function(prev, current) {
+let current_year = 1990;
+let largest_group  = data[current_year].reduce(function(prev, current) {
   return (prev.pop > current.pop) ? prev : current
 }).group
 
-let arcs = pie(data[year]);
+let arcs = pie(data[current_year]);
 arcs.forEach(function(d) {
   d.rad = d.data.hdi*(outerRad - innerRad) + innerRad;
   d.midAngle = (d.startAngle + d.endAngle) / 2;
@@ -101,7 +131,7 @@ let title = svg.append("g")
   //.attr("transform", d => `translate(${width/2, height/2})`)
 tyear = title.append("text")
   .attr("y", "-0.4em")
-  .text(year)
+  .text(current_year)
 title.append("text")
   .attr("y", "0.7em")
   .text("HDI");
@@ -207,13 +237,16 @@ let popreverse = svg.append("g")
     .attr("xlink:href", d => '#' + 'pop')
     .text(d => d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
 
-
-
 svg.append("g")
   .call(yAxis);
 
-function change() {
-  year = year == 2018 ? 1990 : 2018;
+function update(index) {
+  stepSel.classed('is-active', (d, i) => i === index);
+  let year = Object.keys(data)[index];
+
+  if (year == current_year) {return;}
+  current_year = year;
+
   largest_group  = data[year].reduce(function(prev, current) {
     return (prev.pop > current.pop) ? prev : current
   }).group
@@ -299,6 +332,14 @@ function change() {
 
 }
 
+/*
+BUTTON ONLY IN FIRST PROTOTYPE
+function switch_year() {
+  current_year = current_year == 2018 ? 1990 : 2018;
+  update(current_year); 
+}
+*/
+
 // Store the displayed angles in _current.
 // Then, interpolate from _current to the new angles.
 // During the transition, _current is updated in-place by d3.interpolate.
@@ -327,3 +368,26 @@ function reverse_offset(a) {
   const theta = a.endAngle - a.startAngle;
   return 100*(theta*(a.rad + 0.5*innerRad) + a.rad - innerRad) / ((a.rad + innerRad)*theta + 2*(a.rad - innerRad));
 }
+
+const container = d3.select('#scrolly-side');
+const stepSel = container.selectAll('.step');
+
+function init() {
+  Stickyfill.add(d3.select('.sticky').node());
+
+	enterView({
+		selector: stepSel.nodes(),
+		offset: 0.5,
+		enter: el => {
+			const index = +d3.select(el).attr('data-index');
+			update(index);
+		},
+		exit: el => {
+			let index = +d3.select(el).attr('data-index');
+			index = Math.max(0, index - 1);
+			update(index);
+		}
+	});
+}
+
+init()
