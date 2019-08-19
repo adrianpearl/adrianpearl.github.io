@@ -36,10 +36,10 @@ const data = {
     {group: 'Low', pop: 0.752, hdi: 0.497}
   ],
   2017: [
-    {group: 'Very high', pop: 1.356, hdi: 0.894},
-    {group: 'High', pop: 2.216, hdi: 0.757},
-    {group: 'Medium', pop: 2.458, hdi: 0.645},
-    {group: 'Low', pop: 0.776, hdi: 0.504}
+    {group: 'Very high', pop: 1.439, hdi: 0.894},
+    {group: 'High', pop: 2.379, hdi: 0.757},
+    {group: 'Medium', pop: 2.733, hdi: 0.645},
+    {group: 'Low', pop: 0.926, hdi: 0.504}
   ]
 }
 
