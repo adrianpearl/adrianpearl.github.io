@@ -391,3 +391,38 @@ function init() {
 }
 
 init()
+
+let svg90 = d3
+  .select("#graphic2")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height)
+  .attr("viewBox", [-width / 2, -height / 2, width, height])
+  .attr("font-family", "sans-serif")
+  .attr("text-anchor", "middle")
+  .attr("font-size", "0.7em");
+
+let arcs90 = pie(data[1990]);
+arcs90.forEach(function(d) {
+  d.rad = d.data.hdi*(outerRad - innerRad) + innerRad;
+  d.midAngle = (d.startAngle + d.endAngle) / 2;
+});
+
+var path90 = svg90.selectAll("path")
+  .data(arcs90)
+  .join("path")
+    .attr("fill", d => color(d.data.group))
+    .attr("fill-opacity", 0.7)
+    .attr("d", d => arc.outerRadius(d.rad)(d))
+    .each(function(d) { this._current = d; });
+
+let title90 = svg90.append("g")
+  .attr("font-size", "2em")
+  .attr("font-weight", "bold")
+  //.attr("transform", d => `translate(${width/2, height/2})`)
+title90.append("text")
+  .attr("y", "-0.4em")
+  .text("1990")
+title90.append("text")
+  .attr("y", "0.7em")
+  .text("HDI");

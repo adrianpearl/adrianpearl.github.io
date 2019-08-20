@@ -21,6 +21,10 @@
         font-size: 1.1em;
       }
 
+      .filler:last-of-type {
+        height: 200px;
+      }
+
       .filler p {
         margin: 20%;
       }
@@ -28,7 +32,7 @@
       #scrolly-side .scrolly {
         display: flex;
         max-width: 60rem;
-        margin: 3rem auto;
+        margin: 3rem auto 0;
         /*background-color: #f4f4f4;*/
         padding: 1rem;
         line-height: 1.5em;
@@ -43,7 +47,7 @@
       }
       #scrolly-side .scrolly article .step {
         height: 100vh;
-        margin-bottom: 1rem;
+        /*margin-bottom: 1rem;*/
         /*background-color: #969696;*/
         transition: background-color 250ms ease-in-out;
         display: flex;
@@ -52,6 +56,7 @@
       }
       #scrolly-side .scrolly article .step:last-of-type {
         margin-bottom: 0;
+        height: 500px;
       }
       /*#scrolly-side .scrolly article .step.is-active {
         background-color: #008080;
@@ -81,7 +86,9 @@
   <body>
     <section class='filler'>
       <p>
-        In 1990, UNDP published the first Humand Development Report (HDR). Back then, the global Human Development Index (HDI) value was 0.598, which would have classified the world as a "Medium" human development entity. By 2017, the global HDI had risen to 0.728. The graphic below shows the evolution of the HDI across the world over the past three decades.
+        The Human Development Index (HDI) is a summary measure of achievements in three key dimensions of human development: a long and healthy life, access to knowledge and a decent standard of living. The HDI is the geometric mean of normalized indices for each of the three dimensions.
+        <br><br>
+        In 1990, when UNDP published the first Humand Development Report (HDR), the global Human Development Index (HDI) value was 0.598, which would have classified the world as a "Medium" human development entity. By 2017, the global HDI had risen to 0.728. The graphic below shows the evolution of the HDI across the world over the past three decades.
       </p>
     </section>
     
@@ -92,25 +99,27 @@
         <!--  step text   -->
         <article>
           <div class='step' data-index='0'>
-              <p>The Human Development Index (HDI) is a summary measure of achievements in three key dimensions of human development: a long and healthy life, access to knowledge and a decent standard of living. The HDI is the geometric mean of normalized indices for each of the three dimensions.</p>
+            <p>In 1990, well over half the world lived in low HDI countries, while the very high grouping included only a subset of countries in Northern Europe and North America, as well as Australia, New Zealand, and Japan. Additionally, as the index had only just been introduced, there were many countries all over the world where the data simply wasn't available. </p>
           </div>
           <div class='step' data-index='1'>
-              <p>The Inequality-adjusted Human Development Index (IHDI) adjusts the Human Development Index (HDI) for inequality in the distribution of each dimension across the population. It is based on a distribution-sensitive class of composite indices proposed by Foster, Lopez-Calva and Szekely (2005), which draws on the Atkinson (1970) family of inequality measures. It is computed as a geometric mean of inequality-adjusted dimensional indices. </p>
+            <p>The early 90s saw a marked decrease in the low HDI population, thanks in large part to China moving up to the medium grouping. The high HDI grouping shrank, meanwhile, thanks to divergent phenomena in Europe. Much of Northern and Western Europe (Denmark, the United Kingdom, Finland, Luxembourg, France, Spain, and Italy) moved up to the very high grouping. At the same time, several Eastern European countries (Serbia, Latvia, Romania, Ukraine) moved down to Medium.</p>
           </div>
           <div class='step' data-index='2'>
-              <p>The IHDI accounts for inequalities in HDI dimensions by "discounting" each dimension's average value according to its level of inequality. The IHDI equals the HDI when there is no inequality across people but falls below the HDI as inequality rises. In this sense, the IHDI measures the level of human development when inequality is accounted for.</p>
+            <p>The most notable regional development of the late 90s was in Central America, where Mexico, Costa Rica, and Panama moved up to the High grouping, and Nicaragua and Honduras moved up to Medium. Most of the Eastern European countries that had fallen return to the High grouping along with Croatia and Bulgaria.</p>
           </div>
           <div class='step' data-index='3'>
-            <p>2005</p>
+            <p>Many of Europe’s remaining countries in the High grouping (Czechia, Malta, Estonia, Greece, Poland, Lithuania, Latvia, Portugal, Hungary) move up to Very High.</p>
           </div>
           <div class='step' data-index='4'>
-            <p>2010</p>
+            <p>2005 to 2010 was transformative in terms of global human development as since the establishment of the first report in 1990, the latter half of the first decade of the 21st Century marked the first time in which the low HDI classification now made up the lowest share of the global population across the four HDI groups. The decrease in low HDI can be partially contributed to India, home to the world’s second largest population, and their move up to medium HDI.
+            <br><br>
+            Additionally, this period is characterized by the impressive growth of the high HDI classification. In total, 16 countries moved from medium HDI to high HDI; notably, Central Asian countries such as the Caucasus states of Azerbaijan and Armenia, alongside their neighbors in Turkey and Iran, all moved up to the high HDI classification during this period.</p>
           </div>
           <div class='step' data-index='5'>
-            <p>2015</p>
+            <p>2010 to 2015 is distinguishable in regards to the continued reduction of low HDI’s share of the global population. Countries in South and Southeast Asia, including Bangladesh, Lao DPR, Cambodia, Nepal and Pakistan all moved from low HDI to medium HDI. Concurrently, several states in Sub-Saharan Africa, comprising Kenya, Eswatini, Zambia and Angola made progress and moved up to medium HDI. For all the tremendous progress that has been made in the past 25 years up to this point, human development is not always linear. The deleterious effect of conflict occurring in Syrian Arab Republic, Libya, and Yemen precipitated steep declines in those nations’ respective HDIs, and Syria moved down to the low grouping.</p>
           </div>
           <div class='step' data-index='6'>
-            <p>Present day!</p>
+            <div id="graphic2" style="text-align: center"></div>
           </div>
         </article>
         
@@ -125,7 +134,7 @@
     
     <section class='filler'>
       <p>
-        Conclusion text.
+        Comparing the figure from 2017 with its 1990 counterpart shows that remarkable progress has been made in Human Development since the index was introduced. The number of people living in low HDI countries is now under one billion despite rapid population growth in those countries. It's not all good news, however, as the HDIs for many Sub-Saharan African countries remain stubbornly low, and progress among many medium HDI countries has stagnated in the last several years. 
       </p>
     </section>
     <script src="hdi.js"></script>
