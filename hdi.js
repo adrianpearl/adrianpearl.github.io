@@ -295,9 +295,7 @@ function update(index) {
     .attr("display", d => reverse(d) ? "none" : "inherit")
     .transition()
     .duration(dur)
-    .attr("startOffset", function(d) {
-      return `${12.5 * (d.endAngle + d.startAngle) / Math.PI}%`;
-    });
+    .attr("startOffset", d => `${circle_offset(d)}%`);
 
   groupreverse = groupreverse.data(arcs);
   groupreverse
@@ -357,7 +355,14 @@ function offset(a) {
 }
 
 function circle_offset(a) {
-  return 12.5 * (a.endAngle + a.startAngle) / Math.PI;
+  let angle = 12.5 * (a.endAngle + a.startAngle) / Math.PI;
+  if (current_year == 1990 && a.data.group == "Very high") {
+    return angle*1.1;
+  } else if (current_year == 1995 && a.data.group == "Very high") {
+    return angle*0.9;
+  } else {
+    return angle;
+  }
 }
 
 function reverse(a) {
