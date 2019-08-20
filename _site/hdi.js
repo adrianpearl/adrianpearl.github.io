@@ -222,7 +222,7 @@ let poplabel = svg.append("g")
     .attr("display", d => reverse(d) ? "none" : "inherit")
     .attr("startOffset", d => `${circle_offset(d)}%`)
     .attr("xlink:href", d => '#' + 'pop')
-    .text(d => d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
+    .text(d => format_pop(d.data.pop) + (d.data.group == largest_group ? ' people' : ''));
 
 let popreverse = svg.append("g")
   //.attr("font-size", 11)
@@ -235,7 +235,7 @@ let popreverse = svg.append("g")
     .attr("display", d => reverse(d) ? "inherit" : "none")
     .attr("startOffset", d => `${100 - circle_offset(d)}%`)
     .attr("xlink:href", d => '#' + 'pop')
-    .text(d => d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
+    .text(d => format_pop(d.data.pop) + (d.data.group == largest_group ? ' people' : ''));
 
 svg.append("g")
   .call(yAxis);
@@ -312,10 +312,10 @@ function update(index) {
     .transition()
     .duration(dur)
     .attr("startOffset", d => `${circle_offset(d)}%`)
-    .text(d => d.data.pop + ' bn')
+    .text(d => format_pop(d.data.pop))
     .on('end', function(d) {
-      d3.select(this).text(d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
-    })
+      d3.select(this).text(d => format_pop(d.data.pop) + (d.data.group == largest_group ? ' people' : ''));
+    });
 
   popreverse = popreverse.data(arcs);
   popreverse
@@ -323,10 +323,10 @@ function update(index) {
     .transition()
     .duration(dur)
     .attr("startOffset", d => `${100 - circle_offset(d)}%`)
-    .text(d => d.data.pop + ' bn')
+    .text(d => format_pop(d.data.pop))
     .on('end', function(d) {
-      d3.select(this).text(d.data.pop + ' bn' + (d.data.group == largest_group ? ' people' : ''));
-    })
+      d3.select(this).text(d => format_pop(d.data.pop) + (d.data.group == largest_group ? ' people' : ''));
+    });
 
 }
 
@@ -372,6 +372,14 @@ function reverse(a) {
 function reverse_offset(a) {
   const theta = a.endAngle - a.startAngle;
   return 100*(theta*(a.rad + 0.5*innerRad) + a.rad - innerRad) / ((a.rad + innerRad)*theta + 2*(a.rad - innerRad));
+}
+
+function format_pop(p) {
+  if (p < 1) {
+    return (p*1000).toString() + ' m';
+  } else {
+    return p.toString() + ' bn';
+  }
 }
 
 const container = d3.select('#scrolly-side');
