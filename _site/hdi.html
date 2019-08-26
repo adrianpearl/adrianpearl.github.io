@@ -2,32 +2,64 @@
 
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300|Merriweather&display=swap" rel="stylesheet">
+
     <style>
       /*
         Commented out background colors are for editing (easier to see layout elements)
       */
 
       body {
-        background-color: #f4f4f4
+        background-color: white;
+        font-family: 'Merriweather', serif;
+        color: #222;
       }
       .filler {
         height: 100vh;
         text-align: left;
         /*background-color: #f4f4f4;*/
-        display: flex;
-        justify-content: center;
+        display: inline-block;
+        text-align: center;
         align-items: center;
         line-height: 1.5em;
+        min-width: 1020px;
+      }
+
+      .filler:first-of-type {
+        background-color: rgb(28, 30, 32);
+        color: white;
+        font-family: Lato;
         font-size: 1.1em;
       }
 
       .filler:last-of-type {
-        height: 200px;
+        height: auto;
+        display: inline-block;
       }
 
       .filler p {
-        margin: 20%;
+        text-align: left;
+        margin: 0 15%;
       }
+
+      h1 {
+        font-weight: 300;
+        font-size: 3.5em;
+      }
+
+      #preview {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 15%;
+      }
+
+      #preview img {
+        width: 300px;
+      }
+
+      /*#scrolly-side {
+        background-color: beige;
+      }*/
 
       #scrolly-side .scrolly {
         display: flex;
@@ -36,7 +68,6 @@
         /*background-color: #f4f4f4;*/
         padding: 1rem;
         line-height: 1.5em;
-        font-size: 1.1em;
       }
       #scrolly-side .scrolly > * {
         flex: 1;
@@ -49,7 +80,6 @@
         height: 100vh;
         /*margin-bottom: 1rem;*/
         /*background-color: #969696;*/
-        transition: background-color 250ms ease-in-out;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -85,11 +115,16 @@
   </head>
   <body>
     <section class='filler'>
+      <h1>Human Development Since 1990</h1>
       <p>
         The Human Development Index (HDI) is a summary measure of achievements in three key dimensions of human development: a long and healthy life, access to knowledge, and a decent standard of living. The HDI is the geometric mean of normalized indices for each of the three dimensions. HDI classifications are based on fixed cutoff points, which are derived from the three component indicators. The cutoff points are HDI less than .550 for low human development, .550 - .699 for medium human development, .700 - .799 for high human development, and .800 or greater for very high human development. 
         <br><br>
         In 1990, when UNDP published the first Human Development Report (HDR), the global Human Development Index (HDI) value was .598, which would have classified the world as a "medium" human development entity. By 2017, the global HDI had risen to .728. Scroll down to see the evolution of the HDI across the world over the past three decades.
       </p>
+      <div id='preview'>
+        <img src="hdi_1990.svg">
+        <img src="hdi_2017.svg">
+      </div>
     </section>
     
     <section id='scrolly-side'>
