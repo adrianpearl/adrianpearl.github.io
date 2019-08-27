@@ -2,126 +2,32 @@
 
 <html>
   <head>
-    <link href="https://fonts.googleapis.com/css?family=Lato:300|Merriweather&display=swap" rel="stylesheet">
-
-    <style>
-      /*
-        Commented out background colors are for editing (easier to see layout elements)
-      */
-
-      body {
-        background-color: white;
-        font-family: 'Merriweather', serif;
-        color: #222;
-      }
-      .filler {
-        height: 100vh;
-        text-align: left;
-        /*background-color: #f4f4f4;*/
-        display: inline-block;
-        text-align: center;
-        align-items: center;
-        line-height: 1.5em;
-        min-width: 1000px;
-        width: auto;
-      }
-
-      .filler:first-of-type {
-        background-image: linear-gradient(rgb(7, 7, 8), rgb(36, 42, 48));
-        background-color: rgb(28, 30, 32);
-        color: white;
-        font-family: Lato;
-        font-size: 1.1em;
-      }
-
-      .filler:last-of-type {
-        height: auto;
-        display: inline-block;
-      }
-
-      .filler p {
-        text-align: left;
-        margin: 0 15%;
-      }
-
-      h1 {
-        font-weight: 300;
-        font-size: 3.5em;
-      }
-
-      #preview {
-        display: flex;
-        justify-content: space-between;
-        margin: 0 15%;
-      }
-
-      #preview img {
-        width: 300px;
-      }
-
-      /*#scrolly-side {
-        background-color: beige;
-      }*/
-
-      #scrolly-side .scrolly {
-        display: flex;
-        max-width: 60rem;
-        margin: 3rem auto 0;
-        /*background-color: #f4f4f4;*/
-        padding: 1rem;
-        line-height: 1.5em;
-      }
-      #scrolly-side .scrolly > * {
-        flex: 1;
-      }
-      #scrolly-side .scrolly article {
-        padding-right: 1rem;
-        max-width: 30rem;
-      }
-      #scrolly-side .scrolly article .step {
-        height: 100vh;
-        /*margin-bottom: 1rem;*/
-        /*background-color: #969696;*/
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      #scrolly-side .scrolly article .step:last-of-type {
-        margin-bottom: 0;
-        height: 500px;
-      }
-      /*#scrolly-side .scrolly article .step.is-active {
-        background-color: #008080;
-      }*/
-      #scrolly-side .scrolly article .step p {
-        margin: 0;
-        padding: 1rem;
-        text-align: left;
-        font-weight: 400;
-        /*color: #f4f4f4;*/
-      }
-      #scrolly-side .scrolly figure.sticky {
-        position: -webkit-sticky;
-        position: sticky;
-        width: 100%;
-        height: 500px;
-        /*background: #969696;*/
-        margin: 0;
-        top: calc(50% - 250px);
-        left: 0;
-      }
-    </style>
+      <link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto:300|Staatliches&display=swap" rel="stylesheet">
+    <link href="hdi.css" rel="stylesheet">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://unpkg.com/enter-view@1.0.0/enter-view.min.js"></script>
     <script src="https://unpkg.com/stickyfilljs@2.0.5/dist/stickyfill.js"></script>
   </head>
   <body>
     <section class='filler'>
-      <h1>Human Development Since 1990</h1>
+      <div id='content'>
+          <h1>Human Development Since 1990</h1>
+          <p>
+            When UNDP published its first Human Development Report in 1990, almost 60 percent of the world lived in countries with low human development. Since then, a lot has changed.
+          </p>
+          <span class='hdev' id='low'>&bull;</span>
+          <span class='hdev' id='med'>&bull;</span>
+          <span class='hdev' id='high'>&bull;</span>
+          <span class='hdev' id='vh'>&bull;</span>
+      </div>
+      <div id='svgtop'>
+      </div>
+    </section>
+    <section class='filler'>
       <p>
         The Human Development Index (HDI) is a summary measure of achievements in three key dimensions of human development: a long and healthy life, access to knowledge, and a decent standard of living. The HDI is the geometric mean of normalized indices for each of the three dimensions. HDI classifications are based on fixed cutoff points, which are derived from the three component indicators. The cutoff points are HDI less than .550 for low human development, .550 - .699 for medium human development, .700 - .799 for high human development, and .800 or greater for very high human development. 
         <br><br>
-        In 1990, when UNDP published the first Human Development Report (HDR), the global Human Development Index (HDI) value was .598, which would have classified the world as a "medium" human development entity. By 2017, the global HDI had risen to .728. Scroll down to see the evolution of the HDI across the world over the past three decades.
+        In 1990, the global HDI value was .598, which would have classified the world as a "medium" human development entity. By 2017, the global HDI had risen to .728. Scroll down to see the evolution of the HDI across the world over the past three decades.
       </p>
       <div id='preview'>
         <img src="hdi_1990.svg">
@@ -160,7 +66,6 @@
             <p>2010 to 2015 is distinguishable in regards to the continued reduction of low HDI’s share of the global population. Countries in South and Southeast Asia, including Bangladesh, Lao People's Democratic Republic, Cambodia, Nepal and Pakistan all moved from low HDI to medium HDI. Concurrently, several states in Sub-Saharan Africa, comprising Kenya, Eswatini, Zambia and Angola made progress and moved up to medium HDI. For all the tremendous progress that has been made in the past 25 years up to this point, human development is not always linear. The deleterious effect of conflict occurring in Syrian Arab Republic, Libya, and Yemen precipitated steep declines in those nations’ respective HDIs, and Syria moved down to the low grouping.</p>
           </div>
           <div class='step' data-index='6'>
-            <div id="graphic2" style="text-align: center"></div>
           </div>
         </article>
         
@@ -177,6 +82,10 @@
       <p>
         Comparing the figure from 2017 with its 1990 counterpart shows that remarkable progress has been made in Human Development since the index was introduced. The number of people living in low HDI countries is now under one billion despite rapid population growth in those countries. It's not all good news, however, as the HDIs for many Sub-Saharan African countries remain stubbornly low, and progress among many medium HDI countries has stagnated in the last several years. Successful completion of SDGs 1 (No Poverty), 3 (Good Health and Well-being), and 4 (Quality Education) will most likely entail the near-elimination of the low HDI category (which has grown slightly in proportion to the others since 2015 due to population growth) and it is clear that to make this happen a vast amount of work still needs to be done.
       </p>
+      <div id='preview'>
+        <img src="hdi_1990.svg">
+        <img src="hdi_2017.svg">
+      </div>
     </section>
     <script src="hdi.js"></script>
   </body>

@@ -77,6 +77,46 @@ let arc = d3.arc()
   .innerRadius(innerRad)
   .outerRadius(outerRad - 1);
 
+let topradius = 80, spacing = 15;
+
+let snakepath = x => `
+  M ${10 + x} 160
+  a ${topradius - x} ${topradius - x} 0 0 1 ${2*(topradius - x)} 0
+  l 0 100
+  a ${topradius + x} ${topradius + x} 0 0 0 ${2*(topradius + x)} 0
+  l 0 ${-250 + 2*x}
+`;
+
+let arrowpath = x => `
+  M ${4*topradius + x + 10} ${10 + 2*x}
+  l -10 0
+  l 10 -20
+  l 10 20
+  Z
+`;
+
+let svgtop = d3.select("#svgtop")
+  .append("svg")
+  .attr("width", 400)
+  .attr("height", 450)
+
+snakes = svgtop.append("g")
+  .selectAll("path")
+  .data(colors)
+  .join("path")
+    .attr("d", (d, i) => snakepath((i+1)*spacing))
+    .attr("stroke-width", 4)
+    .attr("stroke", "black")
+    .attr("fill", "none")
+    .attr("stroke", d => d)
+
+arrows = svgtop.append("g")
+  .selectAll("path")
+  .data(colors)
+  .join("path")
+    .attr("d", (d, i) => arrowpath((i+1)*spacing))
+    .attr("fill", d => d)
+
 let svg = d3
   .select("#graphic")
   .append("svg")
