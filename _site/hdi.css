@@ -6,13 +6,15 @@ body {
 .filler {
   min-height: 100vh;
   width: 100%;
-  min-width: 1000px;
+  min-width: 900px;
   text-align: left;
   background-color: #d6e3ff;
   display: inline-block;
   align-items: center;
   line-height: 1.5em;
-  padding: 70px 15vw;
+  padding: 70px;
+  padding-left: max(100px, 15%);
+  padding-right: max(100px, 15%);
   box-sizing: border-box;
   font-family: 'Hepta Slab', serif;
   font-size: 1.1em;
@@ -47,8 +49,7 @@ h1 {
 
 #preview {
   display: flex;
-  justify-content: space-between;
-  margin: 0 15%;
+  justify-content: space-around;
 }
 
 #preview img {
@@ -81,6 +82,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 400px;
 }
 #scrolly-side .scrolly article .step:last-of-type {
   margin-bottom: 0;
