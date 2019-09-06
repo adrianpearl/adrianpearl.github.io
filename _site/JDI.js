@@ -93,7 +93,7 @@ completed = ['01001', '01019', '01033', '01045', '01049', '01057', '01059',
 
 const width = 960;
 const height = 600;
-let margin = 50;
+let margin = 20;
 const path = d3.geoPath();
 const formatNumber = d3.format(",.0f");
 const radius = d3.scaleSqrt().domain([0, 2e3]).range([0, 15]);
@@ -130,8 +130,19 @@ let title = d3.select(".title")
 title.text(mode.title);
 
 const svg = d3.select("svg")
-    .style("width", "100%")
-    .style("height", "auto");
+    .style("width", "1200px")
+    .style("height", "720px");
+
+ttexts = ['Jail Data Initiative', 'Public Safety Lab', 'New York University']
+let fig_title = svg.append("g")
+  .attr("transform", `translate(${margin},${margin})`)
+  .selectAll("text")
+  .data(ttexts)
+  .join("text")
+    .attr("font-weight", "bold")
+    .attr("font-size", "1.2em")
+    .attr("y", (d, i) => `${(i+1) * 1.2}em`)
+    .text(d => d)
 
 /*svg.append("text")
   .attr("x", width)
@@ -141,7 +152,8 @@ const svg = d3.select("svg")
 
 d3.json("https://unpkg.com/us-atlas@1/us/10m.json").then(function(us) {
 
-  let map = svg.append("g");
+  let map = svg.append("g")
+    .attr("transform", `translate(0,100)`);
 
   map.append("path")
     .datum(topojson.feature(us, us.objects.nation))
@@ -154,26 +166,6 @@ d3.json("https://unpkg.com/us-atlas@1/us/10m.json").then(function(us) {
     .attr("stroke", colors[3])
     .attr("stroke-linejoin", "round")
     .attr("d", path);
-
-  const legend = map.append("g")
-    .attr("fill", "#777")
-    .attr("transform", `translate(${width - 50},${height - 2})`)
-    .attr("text-anchor", "middle")
-    .style("font", "10px sans-serif")
-    .selectAll("g")
-    .data([1e3, 5e3, 1e4])
-    .join("g");
-
-  legend.append("circle")
-    .attr("fill", "none")
-    .attr("stroke", "#ccc")
-    .attr("cy", d => -radius(d))
-    .attr("r", radius);
-
-  legend.append("text")
-    .attr("y", d => -2 * radius(d))
-    .attr("dy", "1.3em")
-    .text(d3.format(".1s"));
 
   const bar = map.append("g")
     .attr("display", mode.display)
@@ -188,7 +180,34 @@ d3.json("https://unpkg.com/us-atlas@1/us/10m.json").then(function(us) {
         d.population = jail.length > 0 ? jail[0].facility_capacity : 0;
         d.facility = jail.length > 0 ? jail[0].facility_name : '';
     });
-    data = data.sort((a,b) => b.CAPACITY - a.CAPACITY);
+    data = data.sort((a,b) => b.facility_capacity - a.facility_capacity);
+
+    const legend = map.append("g")
+      .attr("fill", "#777")
+      .attr("transform", `translate(${width - 50},${height - 2})`)
+      .attr("text-anchor", "middle")
+      .style("font", "10px sans-serif")
+
+    legend.append("text")
+      .attr("y", -93)
+      .attr("dy", "1.3em")
+      .text("Facility Capacity");
+
+    legendcircles = legend.selectAll("g")
+      .data([1e3, 5e3, 1e4])
+      .join("g");
+
+    legendcircles.append("circle")
+      .attr("fill", "none")
+      .attr("stroke", "#ccc")
+      .attr("cy", d => -radius(d))
+      .attr("r", radius);
+
+    legendcircles.append("text")
+      .attr("y", d => -2 * radius(d))
+      .attr("dy", "1.3em")
+      .text(d3.format(".1s"));
+
     map.append("g")
         .attr("fill-opacity", 0.5)
         .attr("stroke-width", 0.5)
@@ -203,10 +222,12 @@ d3.json("https://unpkg.com/us-atlas@1/us/10m.json").then(function(us) {
         .on("mouseover", function(d) {
           tooltip
             .attr("transform", `translate(${path.centroid(d)})`)
-            .call(callout, `${d.facility}`);
+            .call(callout, `${d.facility}`, d.id);
+          d3.select(this).attr("stroke", "#000");
         })
         .on("mouseout", function(d) {
           tooltip.call(callout, null);
+          d3.select(this).attr("stroke", "#fff");
         })
       .append("title")
         .text(d => formatNumber(d.population));
@@ -236,15 +257,15 @@ d3.json("https://unpkg.com/us-atlas@1/us/10m.json").then(function(us) {
     bardata = [
       {
         text: 'Jails in BJS Census',
-        opacity: 0.2,
+        opacity: 0.5,
         number: data.length,
         color: "#ffb347",
         mid: data.length - (data.length - 1028)/2,
         display: "inherit"
       },
       {
-        text: 'Scrapable',
-        opacity: 1,
+        text: 'Daily Jail Rosters',
+        opacity: 0,
         number: 1028,
         color: "#ffb347",
         mid: 1028 - (1028 - completed.length)/2,
@@ -295,7 +316,7 @@ d3.json("https://unpkg.com/us-atlas@1/us/10m.json").then(function(us) {
   });
 })
 
-callout = (g, value) => {
+callout = (g, value, id) => {
   if (!value) return g.style("display", "none");
 
   g
@@ -316,6 +337,7 @@ callout = (g, value) => {
       .selectAll("tspan")
       .data((value + "").split(/\n/))
       .join("tspan")
+        .attr("fill", completed.includes(id) ? "#2ca02c" : "black")
         .attr("x", 0)
         .attr("y", (d, i) => `${i * 1.1}em`)
         .style("font-weight", (_, i) => i ? null : "bold")
