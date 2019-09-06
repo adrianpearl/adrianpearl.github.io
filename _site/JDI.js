@@ -311,7 +311,7 @@ d3.json("https://unpkg.com/us-atlas@1/us/10m.json").then(function(us) {
         .attr("display", d => d.display)
         .attr("stroke", "black");
 
-    const tooltip = svg.append("g");
+    const tooltip = map.append("g");
 
   });
 })
