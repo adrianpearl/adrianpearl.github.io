@@ -9,6 +9,12 @@ In July, the UN Human Development Report Office and the Oxford Poverty and Human
 
 ***
 
+## [One Day of Citibike Rides](./citibike)
+##### June 2019
+A visualization of every Citibike trip taken on March 6th, 2014.
+
+***
+
 #### [Enigma Datathon - Analyzing NYC Subway Data](./datathon)
 ##### February 2019
 Several fellow students and I competed in a datathon and analyzed the relationships between subway ridership, street traffic, and subway performance.
@@ -31,17 +37,11 @@ An interactive map of over 2 million complaints made through New York City's 311
 ##### July 2018
 An interactive visualization of over 40 years of U.S. exports and imports, with emphasis on how trade balances with each country have evolved.
 
-***
-
-#### [Usage of Federal Tax Provisions](http://www.searchtaxdata.com)
-##### March 2018
-Different provisions of the federal tax code are beneficial (or costly) to taxpayers based on where they live and their income. The state and local income tax (SLIT) refund, for example, saves money for almost everyone in high-tax places like New York, while the capital gains provision is a boon to rich people everywhere. SearchTaxData is a web app to explore the effect of any provision across both of these dimensions.
-
 
 <br>
 
 
-### Prior Work 
+### Prior Work
 ***
 
 
