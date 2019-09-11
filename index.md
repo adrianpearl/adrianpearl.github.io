@@ -3,6 +3,18 @@ layout: default
 title: Adrian Pearl
 ---
 
+#### [Jail Data Initiative - Progress Report](https://publicsafetylab.org/jail-data-initiative)
+##### September 2019
+A visual progress report for the Jail Data Initiative, a research project to compile the largest ever database of county jail rosters and case records, identify counties that are systematically jailing defendants pre-trial and/or post-fine, and model the impacts of these practices on recidivism (among other applications).
+
+***
+
+#### [Data Story - Human Development Since 1990](./hdi)
+##### August 2019
+When UNDP published its first Human Development Report in 1990, almost 60 percent of the world lived in countries with low human development. Since then, a lot has changed.
+
+***
+
 #### [2019 Multidimensional Poverty Index - Going beyond averages](http://hdr.undp.org/en/content/2019-mpi-going-beyond-averages-show-subnational-disparities)
 ##### July 2019
 In July, the UN Human Development Report Office and the Oxford Poverty and Human Development Initiative released the 2019 global MPI. This interactive data story accompanying the release goes beyond averages to show stark regional and subnational disparities in multidimensional poverty.
