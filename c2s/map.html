@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style>
+      body {
+        font: 11px sans-serif;
+      }
+
+      h1 {
+        font-weight: 100;
+      }
+
+      #hospital {
+        color: #ff3385;
+      }
+    </style>
+</head>
+<body>
+    <h1>Flood Map of Sri Lanka</h1>
+    <h3>05/16/2018 - 06/12/2018</h3>
+    <p>
+      Area Flooded: 11,133.14 km<sup>2</sup>
+      <br>
+      Population Exposed: 129,001
+      <br>
+      Pan and zoom the map to view regional and local flooding, and mouseover hospitals <span id="hospital">&#9679;</span> to see their names.
+      <br>
+      Toggle Hospital Layer:
+      <input type="checkbox" id="hdisplay" onclick="h_toggle()" checked>
+    </p>
+    <svg id="map" width=800 height=500></svg>
+    <p>
+      Daily Precipitation (inches)
+    </p>
+    <svg id="chart" width=800 height=200></svg>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-tile@1"></script>
+    <script>
+      const height = 500, width = 800, tau = 2*Math.PI;
+      const lw = 100, lh = 100;
+      const hcolor = "#ff3385";
+      let display_hospitals = true;
+
+      url = (x, y, z) => `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/${z}/${x}/${y}${devicePixelRatio > 1 ? "@2x" : ""}?access_token=pk.eyJ1IjoidG1jdyIsImEiOiJjamN0Z3ZiOXEwanZkMnh2dGFuemkzemE3In0.gibebYiJ5TEdXvwjpCY0jg`;
+
+      floodurl = (x, y, z) => `SentinelCombo_20180516_20180612/${z}/${x}/${y}.png`;
+
+      const svg = d3.select("#map")
+        .attr("viewBox", [0, 0, width, height]);
+      
+      const tile = d3.tile()
+        .extent([[0, 0], [width, height]])
+        .tileSize(512)
+        .clampX(false);
+
+      const zoom = d3.zoom()
+        .scaleExtent([1 << 15, 1 << 22])
+        .extent([[0, 0], [width, height]])
+        .on("zoom", () => zoomed(d3.event.transform));
+
+      let projection = d3.geoMercator()
+        .scale(1 / tau)
+        .translate([0, 0]);
+
+      let image = svg.append("g")
+          .attr("pointer-events", "none")
+        .selectAll("image");
+
+      let floodlayer = svg.append("g")
+          .attr("pointer-events", "none")
+          .attr("opacity", 0.7)
+        .selectAll("image");
+
+      let hlayer = svg.append("g")
+        .selectAll("circle");
+
+      /*let legend = svg.append("rect")
+        .attr("width", lw)
+        .attr("height", lh)
+        .attr("x", width - lw - 10)
+        .attr("y", 0 + 10)
+        .attr("fill", "white")
+        .attr("opacity", 0.8);*/
+
+      let hospitals = [];
+      const tooltip = svg.append("g");
+
+      function hospital_layer(to_display) {
+        if (to_display) {
+          let radius = Math.min(6, Math.log2(projection.scale()) - 11);
+          hlayer = hlayer.data(hospitals).join("circle")
+              .attr("fill", hcolor)
+              .attr("stroke", hcolor)
+              .attr("r", radius)
+              .attr("transform", d => `translate(${projection(d.geometry.coordinates)})`)
+              .on("mouseover", function(d) {
+                tooltip
+                  .attr("transform", `translate(${projection(d.geometry.coordinates)})`)
+                  .call(callout, `${d.properties.name ? d.properties.name : 'N/A'}`, '');
+                d3.select(this).attr("stroke", "#fff");
+              })
+              .on("mouseout", function(d) {
+                tooltip.call(callout, null);
+                d3.select(this).attr("stroke", hcolor);
+              })
+        } else {
+          hlayer = hlayer.data([]).join("circle");
+        }
+      }
+
+      function zoomed(transform) {
+        //console.log(transform.k)
+        projection
+          .scale(transform.k / tau)
+          .translate([transform.x, transform.y]);
+
+        const tiles = tile(transform);
+
+        image = image.data(tiles, d => d).join("image")
+            .attr("xlink:href", d => url(...d3.tileWrap(d)))
+            .attr("x", ([x]) => (x + tiles.translate[0]) * tiles.scale)
+            .attr("y", ([, y]) => (y + tiles.translate[1]) * tiles.scale)
+            .attr("width", tiles.scale)
+            .attr("height", tiles.scale);
+
+        floodlayer = floodlayer.data(tiles, d => d).join("image")
+            .attr("xlink:href", d => floodurl(...d3.tileWrap(d)))
+            .attr("x", ([x]) => (x + tiles.translate[0]) * tiles.scale)
+            .attr("y", ([, y]) => (y + tiles.translate[1]) * tiles.scale)
+            .attr("width", tiles.scale)
+            .attr("height", tiles.scale)
+            .on("error", function() {
+              d3.select(this).style("visibility", "hidden");
+            });
+
+        h_toggle();
+      }
+
+      d3.json('sri-lanka_hospitals_osm.geojson').then(function(countries, error) {
+        hospitals = countries.features;
+        //console.log(hospitals);
+        svg
+          .call(zoom)
+          .call(zoom.transform, d3.zoomIdentity
+            .translate(-6900, 950)
+            .scale(1 << 15));
+      });
+
+      callout = (g, value, id) => {
+        if (!value) return g.style("display", "none");
+
+        g
+            .style("display", null)
+            .style("pointer-events", "none")
+            .style("font", "10px sans-serif");
+
+        const path = g.selectAll("path")
+          .data([null])
+          .join("path")
+            .attr("fill", "white")
+            //.attr("stroke", "black");
+
+        const text = g.selectAll("text")
+          .data([null])
+          .join("text")
+          .call(text => text
+            .selectAll("tspan")
+            .data((value + "").split(/\n/))
+            .join("tspan")
+              .attr("fill", "black")
+              .attr("x", 0)
+              .attr("y", (d, i) => `${i * 1.2}em`)
+              //.style("font-weight", (_, i) => i ? null : "bold")
+              .text(d => d));
+
+        const {x, y, width: w, height: h} = text.node().getBBox();
+
+        text.attr("transform", `translate(${-w / 2},${15 - y})`);
+        path.attr("d", `M${-w / 2 - 10},5H${w / 2 + 10}v${h + 20}h-${w + 20}z`);
+      }
+
+      function h_toggle() {
+        display_hospitals = document.getElementById("hdisplay").checked;
+        hospital_layer(display_hospitals);
+      }
+
+    </script>
+    <script>
+      const chartheight = 200, barwidth = 16;
+      const chartsvg = d3.select("#chart")
+        .attr("viewBox", [0, 0, width, chartheight]);
+      
+      let parseTime = d3.timeParse("%Y%m%d");
+      let margin = ({top: 20, right: 20, bottom: 30, left: 40})
+      
+      d3.csv('Sri-Lanka_GSMaP_20180516_20180612.csv').then(function(precipitation, error) {
+        x = d3.scaleTime()
+          .domain(d3.extent(precipitation, d => parseTime(d.date)))
+          .range([margin.left, width - margin.right]);
+        console.log(d3.extent(precipitation, d => +d.precip));
+        y = d3.scaleLinear()
+          .domain(d3.extent(precipitation, d => +d.precip))
+          .range([chartheight - margin.bottom, margin.top]);
+
+        xAxis = g => g
+          .attr("transform", `translate(0,${chartheight - margin.bottom})`)
+          .call(d3.axisBottom(x)
+              .ticks(7)
+              .tickSizeOuter(0))
+          .call(g => g.select(".domain").remove());
+
+        yAxis = g => g.append("g")
+          .attr("transform", `translate(${margin.left - barwidth},0)`)
+          .call(d3.axisLeft(y)
+              .ticks(4))
+          .call(g => g.select(".domain").remove())
+          .call(g => g.select(".tick:last-of-type text").clone()
+              .attr("x", 3)
+              .attr("text-anchor", "start")
+              .attr("font-weight", "bold"));
+
+        chartsvg.append("g")
+          .call(xAxis);
+        chartsvg.append("g")
+          .call(yAxis);
+
+        chartsvg.append("g")
+            .attr("fill", "#4d79ff")
+          .selectAll("rect")
+          .data(precipitation)
+          .join("rect")
+            .attr("x", d => x(parseTime(d.date)) - barwidth/2)
+            .attr("y", d => y(+d.precip))
+            .attr("height", d => y(0) - y(+d.precip))
+            .attr("width", barwidth);
+            });
+    </script>
+</body>
+</html>
