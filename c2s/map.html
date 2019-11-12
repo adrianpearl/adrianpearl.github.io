@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <style>
       body {
-        font: 11px sans-serif;
+        font: 1em sans-serif;
       }
 
       h1 {
@@ -23,21 +23,23 @@
       Area Flooded: 11,133.14 km<sup>2</sup>
       <br>
       Population Exposed: 129,001
-      <br>
+    </p>
+    <p>
+      Daily Precipitation (inches)
+    </p>
+    <div id="chart"></div>
+    <p>
       Pan and zoom the map to view regional and local flooding, and mouseover hospitals <span id="hospital">&#9679;</span> to see their names.
       <br>
       Toggle Hospital Layer:
       <input type="checkbox" id="hdisplay" onclick="h_toggle()" checked>
     </p>
-    <svg id="map" width=800 height=500></svg>
-    <p>
-      Daily Precipitation (inches)
-    </p>
-    <svg id="chart" width=800 height=200></svg>
+    <div id="map"></div>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3-tile@1"></script>
     <script>
-      const height = 500, width = 800, tau = 2*Math.PI;
+      const height = 500, width = d3.select('body').node().offsetWidth, tau = 2*Math.PI;
+      console.log(height);
       const lw = 100, lh = 100;
       const hcolor = "#ff3385";
       let display_hospitals = true;
@@ -46,8 +48,9 @@
 
       floodurl = (x, y, z) => `SentinelCombo_20180516_20180612/${z}/${x}/${y}.png`;
 
-      const svg = d3.select("#map")
-        .attr("viewBox", [0, 0, width, height]);
+      const svg = d3.select("#map").append("svg")
+        .attr("width", width)
+        .attr("height", height);
       
       const tile = d3.tile()
         .extent([[0, 0], [width, height]])
@@ -187,9 +190,10 @@
 
     </script>
     <script>
-      const chartheight = 200, barwidth = 16;
-      const chartsvg = d3.select("#chart")
-        .attr("viewBox", [0, 0, width, chartheight]);
+      const chartwidth = 600, chartheight = 200, barwidth = 16;
+      const chartsvg = d3.select("#chart").append("svg")
+        .attr("width", chartwidth)
+        .attr("height", chartheight);
       
       let parseTime = d3.timeParse("%Y%m%d");
       let margin = ({top: 20, right: 20, bottom: 30, left: 40})
@@ -197,8 +201,7 @@
       d3.csv('Sri-Lanka_GSMaP_20180516_20180612.csv').then(function(precipitation, error) {
         x = d3.scaleTime()
           .domain(d3.extent(precipitation, d => parseTime(d.date)))
-          .range([margin.left, width - margin.right]);
-        console.log(d3.extent(precipitation, d => +d.precip));
+          .range([margin.left, chartwidth - margin.right]);
         y = d3.scaleLinear()
           .domain(d3.extent(precipitation, d => +d.precip))
           .range([chartheight - margin.bottom, margin.top]);
@@ -213,16 +216,14 @@
         yAxis = g => g.append("g")
           .attr("transform", `translate(${margin.left - barwidth},0)`)
           .call(d3.axisLeft(y)
-              .ticks(4))
-          .call(g => g.select(".domain").remove())
-          .call(g => g.select(".tick:last-of-type text").clone()
-              .attr("x", 3)
-              .attr("text-anchor", "start")
-              .attr("font-weight", "bold"));
+              .ticks(8))
+          .call(g => g.select(".domain").remove());
 
         chartsvg.append("g")
+          .style("font-size", "0.8em")
           .call(xAxis);
         chartsvg.append("g")
+          .style("font-size", "1em")
           .call(yAxis);
 
         chartsvg.append("g")
