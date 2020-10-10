@@ -49,32 +49,8 @@ An interactive map of over 2 million complaints made through New York City's 311
 ##### July 2018
 An interactive visualization of over 40 years of U.S. exports and imports, with emphasis on how trade balances with each country have evolved.
 
-
-<br>
-
-
-### Prior Work
 ***
-
 
 #### [Teaching kids to program with video games](./scratch)
 ##### September 2017 - June 2018
 A little bit about my work teaching elementary and middle school students the basics of programming and computational thinking during the 2017-18 academic year.
-
-***
-
-#### [Koko: making digital communication a little more tactile](./koko)
-##### January 2017 - April 2017
-At Tomorrow Lab, I worked on a project to discover what we could gain from communicating from a long distance without screens.
-
-***
-
-#### [wayCount: a platform for collecting and sharing accurate automobile traffic count data](./waycount)
-##### January 2017 - April 2017
-Collecting data, testing performance, and modifying circuitry to adapt an automobile traffic counter to count bicycle traffic.
-
-***
-
-#### [LittleData: a web-connected digital art and data display](./littledata)
-##### January 2017 - April 2017
-Combining some LED panels, powerful microcontrollers, a raspberry pi for web connectivity, and a frontend interface to create art.
