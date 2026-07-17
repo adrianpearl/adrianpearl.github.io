@@ -1,0 +1,11 @@
+baseURL = 'https://adrianpearl.github.io/'
+locale = 'en-us'
+title = 'adrianpearl.github.io'
+theme = 'ritzy'
+[params]
+  author = "Adrian Pearl"
+  description = "adrianpearl.github.io"
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

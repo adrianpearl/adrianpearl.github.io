@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Posts on adrianpearl.github.io</title>
+		<link>http://localhost:1313/posts/</link>
+		<description>Recent content in Posts on adrianpearl.github.io</description>
+		<generator>Hugo</generator>
+		<language>en-us</language>
+		
+		
+		
+		
+			<lastBuildDate>Sat, 04 Jul 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Popular Legislation</title>
+				<link>http://localhost:1313/posts/populegis/</link>
+				<pubDate>Sat, 04 Jul 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/populegis/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Why, and to what extent, may a false hypothesis yield the truth?</title>
+				<link>http://localhost:1313/posts/kepler/</link>
+				<pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/kepler/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Deaths by Covid Vaccination Status - England</title>
+				<link>http://localhost:1313/posts/uk-ons/</link>
+				<pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/uk-ons/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Data Story - Human Development Since 1990</title>
+				<link>http://localhost:1313/posts/hdi/</link>
+				<pubDate>Wed, 31 Jul 2019 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/hdi/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>2019 Multidimensional Poverty Index - Going beyond averages</title>
+				<link>http://localhost:1313/posts/mpi/</link>
+				<pubDate>Sun, 30 Jun 2019 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/mpi/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>One Day of Citibike Rides</title>
+				<link>http://localhost:1313/posts/citibike/</link>
+				<pubDate>Sun, 30 Jun 2019 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/citibike/</guid>
+				<description>&lt;p&gt;A visualization of every Citibike trip taken on March 6th, 2014.&lt;/p&gt;&#xA;&lt;div class=&#34;bodycontent&#34;&gt;&#xA;&lt;div class=&#34;media&#34; style=&#34;text-align:center&#34;&gt;&#xA;&#x9;&lt;video width=&#34;100%&#34; controls&gt;&#xA;&#x9;&#x9;&lt;source src=&#34;http://localhost:1313/video/citibike.mp4&#34; type=&#34;video/mp4&#34; /&gt;&#xA;&#x9;&lt;/video&gt;&#xA;&lt;/div&gt;&#xA;&lt;/div&gt;</description>
+			</item>
+			<item>
+				<title>Enigma Datathon - Analyzing NYC Subway Data</title>
+				<link>http://localhost:1313/posts/datathon/</link>
+				<pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/datathon/</guid>
+				<description>&lt;p&gt;Recently, I teamed up with a few fellow grad students at NYU to compete in a datathon sponsored by &lt;a href=&#34;https://enigma.com&#34;&gt;Enigma&lt;/a&gt;, who provided several datasets related to public transit in NYC and instructed teams to use them for analysis in a very open-ended way. Our team decided to look at three different metrics - subway ridership, traffic, and subway performance - and see if we could find any interesting relationships between them. The code and results of our analysis are on &lt;a href=&#34;https://github.com/adrianpearl/Datathon-Feb-19&#34;&gt;available on GitHub&lt;/a&gt;.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>For a quick pass at fuzzy string matching, consider TF-IDF vectorization</title>
+				<link>http://localhost:1313/posts/fuzzystring/</link>
+				<pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/fuzzystring/</guid>
+				<description>&lt;p&gt;While competing in the &lt;a href=&#34;http://localhost:1313/posts/datathon&#34;&gt;Enigma Datathon&lt;/a&gt; at NYU, my team and I were analyzing a dataset of &lt;a href=&#34;https://public.enigma.com/datasets/new-york-mta-fare-card-usage-2010-2018/1d76b5be-ff2c-4939-b2d3-14a97e656ce3&#34;&gt;Metrocard usage&lt;/a&gt; at New York City subway stations. Our goal was to obtain the precise location of each station, and ultimately do some spatial analysis of the relationship between ridership and other spatial data, like traffic conditions around the city. We found a database of station names and coordinates, but there was no &amp;lsquo;station ID&amp;rsquo; field that could be used to match stations from the two datasets. Our only option was to use the station names, and here&amp;rsquo;s what the names from each dataset looked like:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Mapping Every Type of 311 Call in New York City</title>
+				<link>http://localhost:1313/posts/311-map/</link>
+				<pubDate>Fri, 15 Feb 2019 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/311-map/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Asteroids Scratch Demo</title>
+				<link>http://localhost:1313/posts/asteroids/</link>
+				<pubDate>Wed, 28 Feb 2018 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/asteroids/</guid>
+				<description>&lt;p&gt;An unfinished remake of the classic arcade game I created as part of my work with &lt;a href=&#34;https://whedco.org/&#34;&gt;WHEDco&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;div class=&#34;media&#34;&gt;&#xA;&lt;iframe allowtransparency=&#34;true&#34; width=&#34;485&#34; height=&#34;402&#34; src=&#34;//scratch.mit.edu/projects/embed/187690901/?autostart=false&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;&#xA;&lt;/div&gt;</description>
+			</item>
+	</channel>
+</rss>

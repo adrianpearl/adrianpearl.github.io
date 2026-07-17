@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For a quick pass at fuzzy string matching, consider TF-IDF vectorization | adrianpearl.github.io</title>
+    <meta name="description" content="adrianpearl.github.io" />
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #4a4b4f;
+        background-color: #fbfbfb;
+      }
+
+      .container {
+        max-width: 580px;  
+        margin: 0 auto;
+        padding: 60px 20px;
+      }
+
+      h1 {
+        font-family: 'Source Serif Pro', serif;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 0 40px 0;
+        color: #4a4b4f;
+      }
+
+      p {
+        margin: 0 0 20px 0;
+        line-height: 1.7;
+      }
+
+      a {
+        color: #8f6a60;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+
+      a:hover {
+        color: #6b5046;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .works-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #4a4b4f;
+      }
+
+      .work-item {
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+
+      .work-link {
+        display: block;
+        text-decoration: none;
+        color: #4a4b4f;
+      }
+
+      .work-link:hover {
+        opacity: 0.8;
+      }
+
+      .work-title {
+        font-weight: 500;
+      }
+
+      .publication {
+        color: #8f6a60;
+      }
+
+      .year {
+        color: #9d9d9d;
+      }
+
+      .description {
+        color: #9d9d9d;
+        font-style: italic;
+        margin-top: 4px;
+      }
+
+      .contact {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px solid #e5e5e5;
+      }
+
+      .footer-image {
+        margin-top: 30px;
+        text-align: left;
+      }
+
+      .footer-image img {
+        width: 60px;
+        height: auto;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 40px 20px;
+        }
+
+        h1 {
+          font-size: 22px;
+        }
+
+        body {
+          font-size: 15px;
+        }
+      }
+      
+       
+      pre {
+        background-color: #f5f5f5;
+        padding: 16px;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+      
+      code {
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      
+      pre code {
+        display: block;
+        white-space: pre !important;
+        word-wrap: normal !important;
+        word-break: normal;
+        overflow-x: auto;
+      }
+      
+       
+      p code, li code, h1 code, h2 code, h3 code {
+        background-color: #f5f5f5;
+        padding: 3px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+       
+      .post-content mjx-container[display="true"] {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        min-height: unset;
+      }
+       
+      .post-content mjx-container[display="true"] mjx-math {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        white-space: pre;
+        box-sizing: border-box;
+        min-height: unset;
+      }
+       
+      .post-content {
+        overflow-x: auto;
+        overflow-y: visible;
+      }
+      
+       
+      .post-content img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+      }
+      
+       
+      .post-content img + em {
+        display: block;
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+        margin-top: -1em;
+        margin-bottom: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      
+<style>
+  .post-container {
+    max-width: 580px;  
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .post-header {
+    margin-bottom: 40px;
+  }
+  
+  .post-title {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4a4b4f;
+  }
+  
+  .post-date {
+    color: #9d9d9d;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  
+  .post-description {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 17px;
+  }
+  
+  .post-content {
+    line-height: 1.8;
+  }
+  
+  .post-content h2 {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 30px 0 20px 0;
+    color: #4a4b4f;
+  }
+  
+  .post-content p {
+    margin-bottom: 20px;
+  }
+  
+  .post-content img {
+    display: block;
+    width: 80%;
+    max-width: 80%;
+    height: auto;
+    margin: 2rem auto;
+    border-radius: 4px;
+  }
+  
+   
+  .post-content img + em {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: #777;
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .post-content em {
+    color: #666;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #8f6a60;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  
+  .back-link:hover {
+    color: #6b5046;
+  }
+</style>
+
+<div class="post-container">
+  <div class="post-header">
+    <h1 class="post-title">For a quick pass at fuzzy string matching, consider TF-IDF vectorization</h1>
+    <div class="post-date">February 28, 2019</div>
+  </div>
+  
+  <div class="post-content">
+    <p>While competing in the <a href="/posts/datathon">Enigma Datathon</a> at NYU, my team and I were analyzing a dataset of <a href="https://public.enigma.com/datasets/new-york-mta-fare-card-usage-2010-2018/1d76b5be-ff2c-4939-b2d3-14a97e656ce3">Metrocard usage</a> at New York City subway stations. Our goal was to obtain the precise location of each station, and ultimately do some spatial analysis of the relationship between ridership and other spatial data, like traffic conditions around the city. We found a database of station names and coordinates, but there was no &lsquo;station ID&rsquo; field that could be used to match stations from the two datasets. Our only option was to use the station names, and here&rsquo;s what the names from each dataset looked like:</p>
+<table>
+	<thead>
+			<tr>
+					<th>First Dataset (Metrocard Usage)</th>
+					<th>Second Dataset (Station Coordinates)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>8TH AVENUE-14TH STREET</td>
+					<td>14 St</td>
+			</tr>
+			<tr>
+					<td>LAFAYETTE AVE FULTON ST</td>
+					<td>Lafayette Av</td>
+			</tr>
+			<tr>
+					<td>NOSTRAND AVE-FULTON ST</td>
+					<td>Fulton St</td>
+			</tr>
+			<tr>
+					<td>81ST STREET-MUSEUM</td>
+					<td>81 St Museum of Natural History</td>
+			</tr>
+			<tr>
+					<td>103RD ST-CENTRAL PARK WEST</td>
+					<td>103 St</td>
+			</tr>
+			<tr>
+					<td>VAN SICLEN AVE-PITKIN AVE</td>
+					<td>Van Siclen Av</td>
+			</tr>
+			<tr>
+					<td>86TH ST-CENTRAL PARK WEST</td>
+					<td>86 St</td>
+			</tr>
+			<tr>
+					<td>155TH STREET-ST NICHOLAS AV</td>
+					<td>155 St</td>
+			</tr>
+			<tr>
+					<td>34TH STREET &amp; 8TH AVENUE</td>
+					<td>34 St Penn Station</td>
+			</tr>
+			<tr>
+					<td>JAY ST-METROTECH</td>
+					<td>Jay St MetroTech</td>
+			</tr>
+	</tbody>
+</table>
+<br>
+<p>The differences in formatting and spelling (&lsquo;Av&rsquo; vs &lsquo;AVE&rsquo; vs &lsquo;AVENUE&rsquo;, etc.) make exact string matching impossible, but an even bigger problem is multiplicity. Of the hundreds of stations in New York, several are located at 34th street in some borough, and it takes some intelligence to figure out that &lsquo;34TH STREET &amp; 8TH AVENUE&rsquo; corresponds to &lsquo;34 St Penn Station&rsquo;. Luckily, both datasets have access to the trains that stop at each station, so we appended them to the station names, adding &lsquo;_TRAIN&rsquo; to each one so that a matching algorithm wouldn&rsquo;t mistake a train number for a street number:</p>
+<table>
+	<thead>
+			<tr>
+					<th>First Dataset (Metrocard Usage)</th>
+					<th>Second Dataset (Station Coordinates)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>8 TH Av 14 TH STREET A_TRAIN C_TRAIN E_TRAIN L_TRAIN</td>
+					<td>14 St A_TRAIN C_TRAIN E_TRAIN</td>
+			</tr>
+			<tr>
+					<td>LAFAYETTE AVE FULTON ST C_TRAIN</td>
+					<td>Lafayette Av C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>NOSTRAND AVE FULTON ST A_TRAIN C_TRAIN</td>
+					<td>Fulton St A_TRAIN C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>81 ST STREET MUSEUM B_TRAIN C_TRAIN</td>
+					<td>81 St Museum of Natural History B_TRAIN C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>103 RD ST CENTRAL PARK WEST B_TRAIN C_TRAIN</td>
+					<td>103 St B_TRAIN C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>VAN SICLEN AVE PITKIN AVE C_TRAIN</td>
+					<td>Van Siclen Av C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>86 TH ST CENTRAL PARK WEST B_TRAIN C_TRAIN</td>
+					<td>86 St B_TRAIN C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>155 TH STREET ST NICHOLAS AV C_TRAIN</td>
+					<td>155 St C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>34 TH STREET &amp; 8 TH Av A_TRAIN C_TRAIN E_TRAIN</td>
+					<td>34 St Penn Station A_TRAIN C_TRAIN E_TRAIN</td>
+			</tr>
+			<tr>
+					<td>JAY ST METROTECH A_TRAIN C_TRAIN F_TRAIN</td>
+					<td>Jay St MetroTech A_TRAIN C_TRAIN F_TRAIN</td>
+			</tr>
+	</tbody>
+</table>
+<br>
+<p>This improves things, because each dataset will contain only one station that is both on 34th street and serves the C train, but also leads to other problems. We tried using a few ad-hoc methods, as well as SeatGeek&rsquo;s <a href="https://github.com/seatgeek/fuzzywuzzy">fuzzywuzzy</a> package, that tokenized the strings and searched for matches based on the number of matching tokens. But if you look at the name &lsquo;LAFAYETTE AVE FULTON ST C_TRAIN&rsquo;, it has more tokens in common with &lsquo;Fulton St A_TRAIN C_TRAIN&rsquo; than it does with its correct match, &lsquo;Lafayette Av C_TRAIN&rsquo; (3 to 2).</p>
+<p>What we needed was a method that could incorporate all of the information, using train lines when necessary but ignoring them when more relevant information was available. In other words, we needed to <strong>weight</strong> the tokens according to their importance, and the best way to do this was TF-IDF vectorization. TF-IDF analyzes the corpus of words as a whole, and weights each token as more important to the string if it is less common in the corpus. This means that if two strings have a relatively rare term (&lsquo;Lafayette&rsquo;) in common, this outweighs the importance of two more common terms (&lsquo;Fulton&rsquo; and &lsquo;A_TRAIN&rsquo;). Below, the same strings but with the important (rare) terms highlighted:</p>
+<table>
+	<thead>
+			<tr>
+					<th>First Dataset (Metrocard Usage)</th>
+					<th>Second Dataset (Station Coordinates)</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>8 TH Av 14 TH STREET A_TRAIN C_TRAIN E_TRAIN L_TRAIN</td>
+					<td>14 St A_TRAIN C_TRAIN E_TRAIN</td>
+			</tr>
+			<tr>
+					<td><mark>LAFAYETTE</mark> AVE FULTON ST C_TRAIN</td>
+					<td><mark>Lafayette</mark> Av C_TRAIN</td>
+			</tr>
+			<tr>
+					<td><mark>NOSTRAND</mark> AVE FULTON ST A_TRAIN C_TRAIN</td>
+					<td>Fulton St A_TRAIN C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>81 ST STREET <mark>MUSEUM</mark> B_TRAIN C_TRAIN</td>
+					<td>81 St <mark>Museum</mark> of <mark>Natural</mark> <mark>History</mark> B_TRAIN C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>103 RD ST <mark>CENTRAL</mark> PARK WEST B_TRAIN C_TRAIN</td>
+					<td>103 St B_TRAIN C_TRAIN</td>
+			</tr>
+			<tr>
+					<td><mark>VAN</mark> <mark>SICLEN</mark> AVE <mark>PITKIN</mark> AVE C_TRAIN</td>
+					<td><mark>Van</mark> <mark>Siclen</mark> Av C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>86 TH ST <mark>CENTRAL</mark> PARK WEST B_TRAIN C_TRAIN</td>
+					<td>86 St B_TRAIN C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>155 TH STREET ST <mark>NICHOLAS</mark> AV C_TRAIN</td>
+					<td>155 St C_TRAIN</td>
+			</tr>
+			<tr>
+					<td>34 TH STREET &amp; 8 TH Av A_TRAIN C_TRAIN E_TRAIN</td>
+					<td>34 St <mark>Penn</mark> Station A_TRAIN C_TRAIN E_TRAIN</td>
+			</tr>
+			<tr>
+					<td><mark>JAY</mark> ST <mark>METROTECH</mark> A_TRAIN C_TRAIN F_TRAIN</td>
+					<td><mark>Jay</mark> St <mark>MetroTech</mark> A_TRAIN C_TRAIN F_TRAIN</td>
+			</tr>
+	</tbody>
+</table>
+<br>
+<p>To sum up, I had never heard of TF-IDF being used in this way, but it ended up working way better than anything else we tried. If you are ever in a similar situation, think about using it!</p>
+
+  </div>
+  
+  <a href="/" class="back-link">← Back to home</a>
+</div>
+
+    </div>
+    
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  </body>
+</html>
